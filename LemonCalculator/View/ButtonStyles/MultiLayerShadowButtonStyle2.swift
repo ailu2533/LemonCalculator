@@ -31,7 +31,7 @@ struct MultiLayerShadowButtonStyle2: ButtonStyle {
                     Circle()
                         .fill(Color(buttonBackgroundColor))
                         .shadow(radius: 1)
-                        .padding(1.4)
+                        .padding(1)
                 }
             )
             .scaleEffect(configuration.isPressed ? 0.95 : 1.0)

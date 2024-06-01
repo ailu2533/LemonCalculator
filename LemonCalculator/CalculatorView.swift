@@ -57,6 +57,30 @@ enum CalcButton: String {
         }
     }
 
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .negative:
+            Image(systemName: "plus.forwardslash.minus")
+        case .add:
+            Image(systemName: "plus")
+        case .subtract:
+            Image(systemName: "minus")
+        case .mutliply:
+            Image(systemName: "multiply")
+        case .divide:
+            Image(systemName: "divide")
+        case .equal:
+            Image(systemName: "equal")
+        case .del:
+            Image(systemName: "delete.left")
+        case .percent:
+            Image(systemName: "percent")
+        default:
+            Text(self.rawValue)
+        }
+    }
+
     var foreground: Color {
         return .white
     }
@@ -131,7 +155,7 @@ struct CalculatorView: View {
                                 self.didTap(button: button)
 
                             }, label: {
-                                Text(button.rawValue)
+                                button.view
                             })
                             .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.gridCellWidth, buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
                         }
@@ -145,7 +169,6 @@ struct CalculatorView: View {
                             .fill(theme.baseBackground)
                             .shadow(radius: 3)
                     }
-                    
                 }
         }
         .padding(theme.calculatorPadding)
@@ -169,7 +192,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
             VStack {
-//                CalculatorView(theme: ClassicTheme())
+                CalculatorView(theme: ClassicTheme())
 //                CalculatorView(theme: ModernTheme())
 //                CalculatorView(theme: GeekGreenTheme())
                 CalculatorView(theme: MdWhiteTheme())
@@ -178,11 +201,9 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
-
 struct MdWhiteTheme: CalculatorTheme {
     var screenTopPadding: CGFloat = 15
-    
+
     var dividerPadding: CGFloat = 20
 
     var buttonTextSize: CGFloat = 20
@@ -210,19 +231,16 @@ struct MdWhiteTheme: CalculatorTheme {
     var showBase: Bool = false
     var basePadding: CGFloat = 8
     var baseBackground: Color = .black.opacity(0.4)
-    
+
     // 按钮颜色
     var functionButtonColor: Color = Color(.mdBrown)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.mdBlue)
-    
 }
-
-
 
 struct GeekGreenTheme: CalculatorTheme {
     var screenTopPadding: CGFloat = 15
-    
+
     var dividerPadding: CGFloat = 20
 
     var buttonTextSize: CGFloat = 20
@@ -250,10 +268,9 @@ struct GeekGreenTheme: CalculatorTheme {
     var showBase: Bool = true
     var basePadding: CGFloat = 8
     var baseBackground: Color = .black.opacity(0.4)
-    
+
     // 按钮颜色
     var functionButtonColor: Color = Color(.blue)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.green)
-    
 }
