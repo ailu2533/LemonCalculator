@@ -14,8 +14,11 @@ protocol CalculatorTheme {
     var gridCellWidth: CGFloat { get }
     var cornerRadius: CGFloat { get }
     var screenHeight: CGFloat { get }
+
     var screenFontsize: CGFloat { get }
     var screenTextColor: Color { get }
+    var screenTopPadding: CGFloat { get }
+
     // 两大功能区的分隔
     var dividerPadding: CGFloat { get }
 
@@ -31,6 +34,36 @@ protocol CalculatorTheme {
 
     var screenShadowColor: Color { get }
     var screenShadowRadius: CGFloat { get }
-    
-    var showBase: Bool {get}
+
+    var showBase: Bool { get }
+    var baseBackground: Color { get }
+    var basePadding: CGFloat { get }
+
+    // 按钮颜色
+    var functionButtonColor: Color { get }
+    var digitalButtonColor: Color { get }
+    var operatorButtonColor: Color { get }
+}
+
+extension CalculatorTheme {
+    var screenWidth: CGFloat {
+        if showBase {
+            return 5 * gridCellWidth + 4 * horizontalSpacing + 2 * basePadding
+        } else {
+            return 5 * gridCellWidth + 4 * horizontalSpacing
+        }
+    }
+}
+
+extension CalculatorTheme {
+    func getButtonColor(_ button: CalcButton) -> Color {
+        switch button.kind {
+        case .digital:
+            return digitalButtonColor
+        case .operator_:
+            return operatorButtonColor
+        case .function:
+            return functionButtonColor
+        }
+    }
 }

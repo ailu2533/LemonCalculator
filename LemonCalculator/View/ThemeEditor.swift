@@ -10,7 +10,7 @@ import SwiftUI
 struct ThemeEditor: View {
     var body: some View {
         VStack {
-            CalculatorView()
+            CalculatorView(theme: ClassicTheme())
             VStack {
                 
                 Section("主题"){

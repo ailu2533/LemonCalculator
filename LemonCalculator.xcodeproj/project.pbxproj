@@ -22,6 +22,8 @@
 		27B776742C0AE23B008D5902 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776732C0AE23B008D5902 /* ThemeModel.swift */; };
 		27B776762C0AE69E008D5902 /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776752C0AE69E008D5902 /* ThemeEditor.swift */; };
 		27B776782C0AEF52008D5902 /* MetalicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776772C0AEF52008D5902 /* MetalicButtonStyle.swift */; };
+		27B7767B2C0B158D008D5902 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7767A2C0B158D008D5902 /* Themes.swift */; };
+		27B7767E2C0B1675008D5902 /* MultiLayerShadowButtonStyle2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7767D2C0B1675008D5902 /* MultiLayerShadowButtonStyle2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		27B776732C0AE23B008D5902 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
 		27B776752C0AE69E008D5902 /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
 		27B776772C0AEF52008D5902 /* MetalicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalicButtonStyle.swift; sourceTree = "<group>"; };
+		27B7767A2C0B158D008D5902 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
+		27B7767D2C0B1675008D5902 /* MultiLayerShadowButtonStyle2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLayerShadowButtonStyle2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,8 @@
 		27B7766D2C0ADAE6008D5902 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				27B7767C2C0B1662008D5902 /* ButtonStyles */,
+				27B776792C0B1551008D5902 /* Themes */,
 				27B7766E2C0ADAF7008D5902 /* CollectionView.swift */,
 				27B776702C0ADB1B008D5902 /* HomeView.swift */,
 				27B776752C0AE69E008D5902 /* ThemeEditor.swift */,
@@ -165,6 +171,22 @@
 				27B776732C0AE23B008D5902 /* ThemeModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		27B776792C0B1551008D5902 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				27B7767A2C0B158D008D5902 /* Themes.swift */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
+		27B7767C2C0B1662008D5902 /* ButtonStyles */ = {
+			isa = PBXGroup;
+			children = (
+				27B7767D2C0B1675008D5902 /* MultiLayerShadowButtonStyle2.swift */,
+			);
+			path = ButtonStyles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,9 +321,11 @@
 			files = (
 				27B7766F2C0ADAF7008D5902 /* CollectionView.swift in Sources */,
 				27B776762C0AE69E008D5902 /* ThemeEditor.swift in Sources */,
+				27B7767E2C0B1675008D5902 /* MultiLayerShadowButtonStyle2.swift in Sources */,
 				27B776712C0ADB1B008D5902 /* HomeView.swift in Sources */,
 				27B776402C0AAB97008D5902 /* CalculatorView.swift in Sources */,
 				27B7763E2C0AAB97008D5902 /* LemonCalculatorApp.swift in Sources */,
+				27B7767B2C0B158D008D5902 /* Themes.swift in Sources */,
 				27B776682C0AC333008D5902 /* Calculator.swift in Sources */,
 				27B7766C2C0ACE92008D5902 /* MainView.swift in Sources */,
 				27B7766A2C0AC69F008D5902 /* CalculatorThemeProtocol.swift in Sources */,

@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 enum CalculatorThemeKind: Int, Identifiable, CaseIterable {
     case classic
     case modern
@@ -69,15 +66,16 @@ struct MainView: View {
 }
 
 struct Theme2: CalculatorTheme {
+    var screenTopPadding: CGFloat = 15
+
     var dividerPadding: CGFloat = 14
-    
+
     var buttonTextSize: CGFloat = 14
 
     let horizontalSpacing: CGFloat = 4
     let verticalSpacing: CGFloat = 10
     let gridCellWidth: CGFloat = 26
     let cornerRadius: CGFloat = 12
-    
 
     let screenBackground: Color = .yellow
     let screenTextColor: Color = .white
@@ -93,13 +91,17 @@ struct Theme2: CalculatorTheme {
     var calculatorPadding: CGFloat = 8
     var calculatorBorderShadowColor: Color = .gray
     var calculatorBorderShadowRadius: CGFloat = 2
-    
+
     var showBase: Bool = true
+    var basePadding: CGFloat = 8
+    var baseBackground: Color = .black
+    
+    
+    // 按钮颜色
+    var functionButtonColor: Color = Color(.lightGray)
+    var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
+    var operatorButtonColor: Color = Color(.orange)
 }
-
-
-
-
 
 struct SettingsView: View {
     var body: some View {

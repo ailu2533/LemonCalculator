@@ -16,7 +16,7 @@ struct CollectionView: View {
                        
                         NavigationLink(value: 1) {
                             VStack {
-                                CalculatorView(theme: Theme1())
+                                CalculatorView(theme: ClassicTheme())
                                 Text("名称")
                             }.padding(.bottom, 20)
                                 .allowsHitTesting(false)

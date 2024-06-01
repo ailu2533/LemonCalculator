@@ -7,6 +7,12 @@ let buttons: [[CalcButton]] = [
     [.del, .zero, .decimal, .equal, .add],
 ]
 
+enum CalculatorButtonKind: Int {
+    case function
+    case digital
+    case operator_
+}
+
 enum CalcButton: String {
     case one = "1"
     case two = "2"
@@ -37,6 +43,17 @@ enum CalcButton: String {
             return Color(.lightGray)
         default:
             return Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
+        }
+    }
+
+    var kind: CalculatorButtonKind {
+        switch self {
+        case .add, .subtract, .mutliply, .divide, .equal:
+            return .operator_
+        case .clear, .negative, .percent, .del:
+            return .function
+        default:
+            return .digital
         }
     }
 
@@ -79,41 +96,93 @@ struct CircleButton: ButtonStyle {
     }
 }
 
-struct MultiLayerShadowButtonStyle2: ButtonStyle {
-    
-    let gridCellWidth: CGFloat
-    let buttonBackgroundColor: Color
-    var buttonForegroundColor: Color = .white
-    var buttonShadowColor: Color = .white
-    var buttonShadowRadius: CGFloat = 2
-    var buttonTextSize: CGFloat = 18
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .frame(width: 45, height: 45)
-            .background(
-                ZStack {
-                    // Outer shadow
-                    Circle()
-                        .fill(LinearGradient(colors: [Color(.startWhite), Color(.stopWhite)], startPoint: .topLeading, endPoint: .bottomTrailing))
+struct CalculatorView: View {
+    @State private var tapCount = 0
 
-                        .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0.1, y: 0.1) // Bottom-right shadow
-                        .shadow(color: Color.white.opacity(0.7), radius: 0, x: 0, y: -0.5) // Top-left highlight
+    var theme: CalculatorTheme
 
-                    // Inner button
-                    Circle()
-                        .fill(Color(buttonBackgroundColor))
-                        .shadow(radius: 1)
-                        .padding(1)
+    var body: some View {
+        VStack(spacing: theme.dividerPadding) {
+            HStack {
+                Spacer()
+                Text("0")
+                    .bold()
+                    .font(.system(size: theme.screenFontsize))
+                    .foregroundColor(theme.screenTextColor).padding(.trailing)
+            }
+            .frame(width: theme.screenWidth,
+                   height: theme.screenHeight,
+                   alignment: .trailing)
+            .background(theme.screenBackground)
+            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
+            .shadow(color: theme.screenShadowColor,
+                    radius: theme.screenShadowRadius)
+            .padding(.top, theme.screenTopPadding)
+
+            Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
+                ForEach(buttons.indices, id: \.self) { rowIndex in
+                    GridRow {
+                        ForEach(buttons[rowIndex], id: \.self) { button in
+
+                            let buttonColor = theme.getButtonColor(button)
+
+                            Button(action: {
+                                self.tapCount += 1
+                                self.didTap(button: button)
+
+                            }, label: {
+                                Text(button.rawValue)
+                            })
+                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.gridCellWidth, buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
+                        }
+                    }
                 }
-            )
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
-            .animation(.easeOut, value: configuration.isPressed)
-            .foregroundColor(Color.white) // Text color
+
+            }.padding(theme.basePadding)
+                .background {
+                    if theme.showBase {
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(theme.baseBackground)
+                            .shadow(radius: 3)
+                    }
+                    
+                }
+        }
+        .padding(theme.calculatorPadding)
+        .background(ImagePaint(image: Image("texture"), scale: 0.1))
+        .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
+        .shadow(color: theme.calculatorBorderShadowColor,
+                radius: theme.calculatorBorderShadowRadius)
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(theme.calculatorBackground)
+        }
+
+        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
+    }
+
+    func didTap(button: CalcButton) {
     }
 }
 
-struct Theme1: CalculatorTheme {
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ScrollView {
+            VStack {
+//                CalculatorView(theme: ClassicTheme())
+//                CalculatorView(theme: ModernTheme())
+//                CalculatorView(theme: GeekGreenTheme())
+                CalculatorView(theme: MdWhiteTheme())
+            }
+        }
+    }
+}
+
+
+
+struct MdWhiteTheme: CalculatorTheme {
+    var screenTopPadding: CGFloat = 15
+    
     var dividerPadding: CGFloat = 20
 
     var buttonTextSize: CGFloat = 20
@@ -123,93 +192,68 @@ struct Theme1: CalculatorTheme {
     let gridCellWidth: CGFloat = 45
     let cornerRadius: CGFloat = 12
 
-    let screenBackground: Color = Color(.lightGray)
+    let screenBackground: Color = Color(.mdScreenGreen)
+    let screenTextColor: Color = .black
+    let screenHeight: CGFloat = 60
+    let screenFontsize: CGFloat = 40
+    var screenShadowColor: Color = .black
+    var screenShadowRadius: CGFloat = 0.6
+
+    var calculatorBackground: Color = Color(.mdWhite)
+    var buttonBackground: Color = .black
+    var buttonShadowColor: Color = .white
+
+    var calculatorPadding: CGFloat = 8
+    var calculatorBorderShadowColor: Color = .white
+    var calculatorBorderShadowRadius: CGFloat = 0
+
+    var showBase: Bool = false
+    var basePadding: CGFloat = 8
+    var baseBackground: Color = .black.opacity(0.4)
+    
+    // 按钮颜色
+    var functionButtonColor: Color = Color(.mdBrown)
+    var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
+    var operatorButtonColor: Color = Color(.mdBlue)
+    
+}
+
+
+
+struct GeekGreenTheme: CalculatorTheme {
+    var screenTopPadding: CGFloat = 15
+    
+    var dividerPadding: CGFloat = 20
+
+    var buttonTextSize: CGFloat = 20
+
+    let horizontalSpacing: CGFloat = 10
+    let verticalSpacing: CGFloat = 10
+    let gridCellWidth: CGFloat = 45
+    let cornerRadius: CGFloat = 12
+
+    let screenBackground: Color = Color(.green)
     let screenTextColor: Color = .white
     let screenHeight: CGFloat = 60
     let screenFontsize: CGFloat = 40
     var screenShadowColor: Color = .black
     var screenShadowRadius: CGFloat = 0.6
 
-    var calculatorBackground: Color = .white
+    var calculatorBackground: Color = .green.opacity(0.8)
     var buttonBackground: Color = .black
     var buttonShadowColor: Color = .white
 
     var calculatorPadding: CGFloat = 8
-    var calculatorBorderShadowColor: Color = .gray
-    var calculatorBorderShadowRadius: CGFloat = 2
+    var calculatorBorderShadowColor: Color = .white
+    var calculatorBorderShadowRadius: CGFloat = 0
 
     var showBase: Bool = true
-}
-
-struct CalculatorView: View {
-    @State var value = "0"
-    @State var runningNumber = 0
-    @State var currentOperation: Operation = .none
-
-    @State private var tapCount = 0
-
-    var theme: CalculatorTheme = Theme1()
-
-    var body: some View {
-        VStack(spacing: theme.dividerPadding) {
-            HStack {
-                Spacer()
-                Text(value)
-                    .bold()
-                    .font(.system(size: theme.screenFontsize))
-                    .foregroundColor(theme.screenTextColor).padding(.trailing)
-            }
-            .frame(width: 5 * theme.gridCellWidth + 4 * theme.horizontalSpacing,
-                   height: theme.screenHeight,
-                   alignment: .trailing)
-            .background(theme.screenBackground)
-            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
-            .shadow(color: theme.screenShadowColor,
-                    radius: theme.screenShadowRadius)
-            .padding(.top, 15)
-
-            Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
-                ForEach(buttons.indices, id: \.self) { rowIndex in
-                    GridRow {
-                        ForEach(buttons[rowIndex], id: \.self) { button in
-                            Button(action: {
-                                self.tapCount += 1
-                                self.didTap(button: button)
-
-                            }, label: {
-                                Text(button.rawValue)
-                            })
-                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.gridCellWidth, buttonBackgroundColor: button.background, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
-
-//                            .buttonStyle(CircleButton(gridCellWidth: theme.gridCellWidth, buttonBackgroundColor: button.background, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
-                        }
-                    }
-                }
-                
-            }.padding(8)
-                .background {
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(.black.opacity(0.3))
-                        .shadow(radius: 3)
-                }
-        }.sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
-        .padding(theme.calculatorPadding)
-        .background(ImagePaint(image: Image("texture"), scale: 0.1))
-        .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
-        .shadow(color: theme.calculatorBorderShadowColor,
-                radius: theme.calculatorBorderShadowRadius)
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.black.opacity(0.5))
-        }
-    }
-
-    func didTap(button: CalcButton) {
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        CalculatorView()
-    }
+    var basePadding: CGFloat = 8
+    var baseBackground: Color = .black.opacity(0.4)
+    
+    // 按钮颜色
+    var functionButtonColor: Color = Color(.blue)
+    var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
+    var operatorButtonColor: Color = Color(.green)
+    
 }
