@@ -8,12 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		27B7763E2C0AAB97008D5902 /* LemonCalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7763D2C0AAB97008D5902 /* LemonCalculatorApp.swift */; };
-		27B776402C0AAB97008D5902 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7763F2C0AAB97008D5902 /* ContentView.swift */; };
+		27B776402C0AAB97008D5902 /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7763F2C0AAB97008D5902 /* CalculatorView.swift */; };
 		27B776422C0AAB98008D5902 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B776412C0AAB98008D5902 /* Assets.xcassets */; };
 		27B776452C0AAB98008D5902 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27B776442C0AAB98008D5902 /* Preview Assets.xcassets */; };
 		27B7764F2C0AAB98008D5902 /* LemonCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7764E2C0AAB98008D5902 /* LemonCalculatorTests.swift */; };
 		27B776592C0AAB98008D5902 /* LemonCalculatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776582C0AAB98008D5902 /* LemonCalculatorUITests.swift */; };
 		27B7765B2C0AAB98008D5902 /* LemonCalculatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7765A2C0AAB98008D5902 /* LemonCalculatorUITestsLaunchTests.swift */; };
+		27B776682C0AC333008D5902 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776672C0AC333008D5902 /* Calculator.swift */; };
+		27B7766A2C0AC69F008D5902 /* CalculatorThemeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776692C0AC69F008D5902 /* CalculatorThemeProtocol.swift */; };
+		27B7766C2C0ACE92008D5902 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7766B2C0ACE92008D5902 /* MainView.swift */; };
+		27B7766F2C0ADAF7008D5902 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B7766E2C0ADAF7008D5902 /* CollectionView.swift */; };
+		27B776712C0ADB1B008D5902 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776702C0ADB1B008D5902 /* HomeView.swift */; };
+		27B776742C0AE23B008D5902 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776732C0AE23B008D5902 /* ThemeModel.swift */; };
+		27B776762C0AE69E008D5902 /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776752C0AE69E008D5902 /* ThemeEditor.swift */; };
+		27B776782C0AEF52008D5902 /* MetalicButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776772C0AEF52008D5902 /* MetalicButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +44,7 @@
 /* Begin PBXFileReference section */
 		27B7763A2C0AAB97008D5902 /* LemonCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LemonCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B7763D2C0AAB97008D5902 /* LemonCalculatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonCalculatorApp.swift; sourceTree = "<group>"; };
-		27B7763F2C0AAB97008D5902 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		27B7763F2C0AAB97008D5902 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		27B776412C0AAB98008D5902 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		27B776442C0AAB98008D5902 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		27B7764A2C0AAB98008D5902 /* LemonCalculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemonCalculatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +52,14 @@
 		27B776542C0AAB98008D5902 /* LemonCalculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LemonCalculatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		27B776582C0AAB98008D5902 /* LemonCalculatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonCalculatorUITests.swift; sourceTree = "<group>"; };
 		27B7765A2C0AAB98008D5902 /* LemonCalculatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LemonCalculatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		27B776672C0AC333008D5902 /* Calculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculator.swift; sourceTree = "<group>"; };
+		27B776692C0AC69F008D5902 /* CalculatorThemeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorThemeProtocol.swift; sourceTree = "<group>"; };
+		27B7766B2C0ACE92008D5902 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		27B7766E2C0ADAF7008D5902 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		27B776702C0ADB1B008D5902 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		27B776732C0AE23B008D5902 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
+		27B776752C0AE69E008D5902 /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
+		27B776772C0AEF52008D5902 /* MetalicButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalicButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +110,15 @@
 		27B7763C2C0AAB97008D5902 /* LemonCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				27B776722C0AE208008D5902 /* Model */,
+				27B7766D2C0ADAE6008D5902 /* View */,
 				27B7763D2C0AAB97008D5902 /* LemonCalculatorApp.swift */,
-				27B7763F2C0AAB97008D5902 /* ContentView.swift */,
+				27B7763F2C0AAB97008D5902 /* CalculatorView.swift */,
 				27B776412C0AAB98008D5902 /* Assets.xcassets */,
 				27B776432C0AAB98008D5902 /* Preview Content */,
+				27B776672C0AC333008D5902 /* Calculator.swift */,
+				27B776692C0AC69F008D5902 /* CalculatorThemeProtocol.swift */,
+				27B7766B2C0ACE92008D5902 /* MainView.swift */,
 			);
 			path = LemonCalculator;
 			sourceTree = "<group>";
@@ -125,6 +146,25 @@
 				27B7765A2C0AAB98008D5902 /* LemonCalculatorUITestsLaunchTests.swift */,
 			);
 			path = LemonCalculatorUITests;
+			sourceTree = "<group>";
+		};
+		27B7766D2C0ADAE6008D5902 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				27B7766E2C0ADAF7008D5902 /* CollectionView.swift */,
+				27B776702C0ADB1B008D5902 /* HomeView.swift */,
+				27B776752C0AE69E008D5902 /* ThemeEditor.swift */,
+				27B776772C0AEF52008D5902 /* MetalicButtonStyle.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		27B776722C0AE208008D5902 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				27B776732C0AE23B008D5902 /* ThemeModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +297,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				27B776402C0AAB97008D5902 /* ContentView.swift in Sources */,
+				27B7766F2C0ADAF7008D5902 /* CollectionView.swift in Sources */,
+				27B776762C0AE69E008D5902 /* ThemeEditor.swift in Sources */,
+				27B776712C0ADB1B008D5902 /* HomeView.swift in Sources */,
+				27B776402C0AAB97008D5902 /* CalculatorView.swift in Sources */,
 				27B7763E2C0AAB97008D5902 /* LemonCalculatorApp.swift in Sources */,
+				27B776682C0AC333008D5902 /* Calculator.swift in Sources */,
+				27B7766C2C0ACE92008D5902 /* MainView.swift in Sources */,
+				27B7766A2C0AC69F008D5902 /* CalculatorThemeProtocol.swift in Sources */,
+				27B776742C0AE23B008D5902 /* ThemeModel.swift in Sources */,
+				27B776782C0AEF52008D5902 /* MetalicButtonStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
