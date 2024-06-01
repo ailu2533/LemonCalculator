@@ -1,7 +1,7 @@
 import SwiftUI
 
 let buttons: [[CalcButton]] = [
-    [.clear, .seven, .eight, .nine, .add],
+    [.clear, .seven, .eight, .nine, .divide],
     [.negative, .four, .five, .six, .mutliply],
     [.percent, .one, .two, .three, .subtract],
     [.del, .zero, .decimal, .equal, .add],
@@ -25,9 +25,9 @@ enum CalcButton: String {
     case nine = "9"
     case zero = "0"
     case add = "+"
-    case subtract = "-"
+    case subtract = "−"
     case divide = "÷"
-    case mutliply = "x"
+    case mutliply = "×"
     case equal = "="
     case clear = "AC"
     case decimal = "."
@@ -125,23 +125,33 @@ struct CalculatorView: View {
 
     var theme: CalculatorTheme
 
+    let size: CGSize = .init(width: 338, height: 354)
+
     var body: some View {
-        VStack(spacing: theme.dividerPadding) {
+        VStack(spacing: 14) {
             HStack {
                 Spacer()
-                Text("0")
+                Text("0000")
+
                     .bold()
-                    .font(.system(size: theme.screenFontsize))
-                    .foregroundColor(theme.screenTextColor).padding(.trailing)
+                    .font(.custom("DigitalNumbers-Regular", size: 20))
+                    .foregroundColor(.black).padding(.trailing)
+                    .padding(.vertical, 15)
             }
-            .frame(width: theme.screenWidth,
-                   height: theme.screenHeight,
-                   alignment: .trailing)
             .background(theme.screenBackground)
-            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
+            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius - 1))
+            .padding(1.8)
+            .background(content: {
+                RoundedRectangle(cornerRadius: theme.cornerRadius)
+                    .fill(.white)
+            })
+
+            .frame(width: theme.screenWidth,
+                   alignment: .trailing)
+
             .shadow(color: theme.screenShadowColor,
                     radius: theme.screenShadowRadius)
-            .padding(.top, theme.screenTopPadding)
+//            .padding(.top, 6)
 
             Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
                 ForEach(buttons.indices, id: \.self) { rowIndex in
@@ -157,7 +167,7 @@ struct CalculatorView: View {
                             }, label: {
                                 button.view
                             })
-                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.gridCellWidth, buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
+                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
                         }
                     }
                 }
@@ -167,12 +177,17 @@ struct CalculatorView: View {
                     if theme.showBase {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(theme.baseBackground)
+                            .blur(radius: 0.6)
                             .shadow(radius: 3)
                     }
                 }
         }
-        .padding(theme.calculatorPadding)
-        .background(ImagePaint(image: Image("texture"), scale: 0.1))
+        .frame(width: size.width, height: size.height)
+
+        .background {
+            theme.background
+        }
+
         .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
         .shadow(color: theme.calculatorBorderShadowColor,
                 radius: theme.calculatorBorderShadowRadius)
@@ -193,15 +208,20 @@ struct ContentView_Previews: PreviewProvider {
         ScrollView {
             VStack {
                 CalculatorView(theme: ClassicTheme())
-//                CalculatorView(theme: ModernTheme())
-//                CalculatorView(theme: GeekGreenTheme())
+                CalculatorView(theme: ModernTheme())
+                CalculatorView(theme: GeekGreenTheme())
                 CalculatorView(theme: MdWhiteTheme())
             }
-        }
+        }.scrollIndicators(.hidden)
     }
 }
 
 struct MdWhiteTheme: CalculatorTheme {
+    var background: AnyView {
+        AnyView(Color.clear)
+    }
+
+    var texture: String? = nil
     var screenTopPadding: CGFloat = 15
 
     var dividerPadding: CGFloat = 20
@@ -215,7 +235,7 @@ struct MdWhiteTheme: CalculatorTheme {
 
     let screenBackground: Color = Color(.mdScreenGreen)
     let screenTextColor: Color = .black
-    let screenHeight: CGFloat = 60
+    let screenHeight: CGFloat = 80
     let screenFontsize: CGFloat = 40
     var screenShadowColor: Color = .black
     var screenShadowRadius: CGFloat = 0.6
@@ -228,9 +248,9 @@ struct MdWhiteTheme: CalculatorTheme {
     var calculatorBorderShadowColor: Color = .white
     var calculatorBorderShadowRadius: CGFloat = 0
 
-    var showBase: Bool = false
+    var showBase: Bool = true
     var basePadding: CGFloat = 8
-    var baseBackground: Color = .black.opacity(0.4)
+    var baseBackground: Color = .black.opacity(0.05)
 
     // 按钮颜色
     var functionButtonColor: Color = Color(.mdBrown)
@@ -239,6 +259,13 @@ struct MdWhiteTheme: CalculatorTheme {
 }
 
 struct GeekGreenTheme: CalculatorTheme {
+    var background: AnyView {
+        AnyView(StripedBackground(stripeColor: Color(hex: "#58a6d1")!,
+                                  backgroundColor: Color(hex: "4e94ba")!))
+    }
+
+    var texture: String? = nil
+
     var screenTopPadding: CGFloat = 15
 
     var dividerPadding: CGFloat = 20
@@ -273,4 +300,20 @@ struct GeekGreenTheme: CalculatorTheme {
     var functionButtonColor: Color = Color(.blue)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.green)
+}
+
+extension View {
+    /// Applies the given transform if the given condition evaluates to `true`.
+    /// - Parameters:
+    ///   - condition: The condition to evaluate.
+    ///   - transform: The transform to apply to the source `View`.
+    /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
+    @ViewBuilder
+    public func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
+    }
 }

@@ -12,21 +12,27 @@ struct CollectionView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack {
-                    ForEach(CalculatorThemeKind.allCases) { _ in
-                       
-                        NavigationLink(value: 1) {
-                            VStack {
-                                CalculatorView(theme: ClassicTheme())
-                                Text("名称")
-                            }.padding(.bottom, 20)
-                                .allowsHitTesting(false)
-                        }
-//                        .contentShape(Rectangle())
-                        .buttonStyle(BorderlessButtonStyle())
-                        
-                        
-                       
-                    }
+//                    ForEach(CalculatorThemeKind.allCases) { _ in
+//
+//                        NavigationLink(value: 1) {
+//                            VStack {
+//                                CalculatorView(theme: ClassicTheme())
+//                                Text("名称")
+//                            }.padding(.bottom, 20)
+//                                .allowsHitTesting(false)
+//                        }
+                    ////                        .contentShape(Rectangle())
+//                        .buttonStyle(BorderlessButtonStyle())
+//
+//
+//
+//                    }
+
+                    CalculatorView(theme: ClassicTheme())
+                   
+                    CalculatorView(theme: MdWhiteTheme())
+                    CalculatorView(theme: ModernTheme())
+                    CalculatorView(theme: GeekGreenTheme())
                 }
                 .navigationDestination(for: Int.self, destination: { _ in
                     ThemeEditor()
@@ -36,7 +42,6 @@ struct CollectionView: View {
                 .contentMargins(.top, 20)
 
                 .navigationTitle("我的小组件")
-                
         }
     }
 }

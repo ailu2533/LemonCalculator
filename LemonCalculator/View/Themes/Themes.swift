@@ -8,10 +8,14 @@
 import Foundation
 import SwiftUI
 
-
 struct ClassicTheme: CalculatorTheme {
+    var background: AnyView {
+        AnyView(Rectangle().fill(ImagePaint(image: Image("texture"), scale: 0.1)))
+    }
+
+    var texture: String? = "texture"
     var screenTopPadding: CGFloat = 15
-    
+
     var dividerPadding: CGFloat = 20
 
     var buttonTextSize: CGFloat = 20
@@ -39,19 +43,21 @@ struct ClassicTheme: CalculatorTheme {
     var showBase: Bool = true
     var basePadding: CGFloat = 8
     var baseBackground: Color = .black.opacity(0.4)
-    
+
     // 按钮颜色
     var functionButtonColor: Color = Color(.lightGray)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.orange)
-    
 }
 
-
-
 struct ModernTheme: CalculatorTheme {
+    var background: AnyView {
+        AnyView(Color.clear)
+    }
+
+    var texture: String? = nil
     var screenTopPadding: CGFloat = 15
-    
+
     var dividerPadding: CGFloat = 20
 
     var buttonTextSize: CGFloat = 20
@@ -79,10 +85,9 @@ struct ModernTheme: CalculatorTheme {
     var showBase: Bool = true
     var basePadding: CGFloat = 8
     var baseBackground: Color = .yellow.opacity(0.4)
-    
+
     // 按钮颜色
     var functionButtonColor: Color = Color(.blue)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.red)
-    
 }

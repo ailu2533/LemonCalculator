@@ -50,7 +50,7 @@ enum CalculatorThemeKind: Int, Identifiable, CaseIterable {
 struct MainView: View {
     var body: some View {
         TabView {
-            HomeView().tabItem {
+            FullCalculatorView(theme: ClassicTheme()).tabItem {
                 Label("发现", systemImage: "house")
             }
 
@@ -66,6 +66,12 @@ struct MainView: View {
 }
 
 struct Theme2: CalculatorTheme {
+    var background: AnyView {
+        AnyView(Color.clear)
+    }
+    
+    var texture: String? = nil
+    
     var screenTopPadding: CGFloat = 15
 
     var dividerPadding: CGFloat = 14

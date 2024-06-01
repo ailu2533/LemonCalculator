@@ -28,6 +28,8 @@ protocol CalculatorTheme {
     var buttonShadowColor: Color { get }
     var buttonTextSize: CGFloat { get }
 
+    var texture: String? { get }
+
     var calculatorPadding: CGFloat { get }
     var calculatorBorderShadowColor: Color { get }
     var calculatorBorderShadowRadius: CGFloat { get }
@@ -43,14 +45,16 @@ protocol CalculatorTheme {
     var functionButtonColor: Color { get }
     var digitalButtonColor: Color { get }
     var operatorButtonColor: Color { get }
+
+    var background: AnyView { get }
 }
 
 extension CalculatorTheme {
     var screenWidth: CGFloat {
         if showBase {
-            return 5 * gridCellWidth + 4 * horizontalSpacing + 2 * basePadding
+            return 5 * getGridCellWidth() + 4 * horizontalSpacing + 2 * basePadding
         } else {
-            return 5 * gridCellWidth + 4 * horizontalSpacing
+            return 5 * getGridCellWidth() + 4 * horizontalSpacing
         }
     }
 }
@@ -64,6 +68,26 @@ extension CalculatorTheme {
             return operatorButtonColor
         case .function:
             return functionButtonColor
+        }
+    }
+
+    func getGridCellWidth() -> CGFloat {
+        let size = SizeHelper.getLarge()
+        let basePaddingValue = showBase ? 2 * basePadding : 0
+        return (size.width - (basePaddingValue + 4 * horizontalSpacing + 2 * calculatorPadding)) / 5
+    }
+
+    func getFullGridCellWidth() -> CGFloat {
+        let size = UIScreen.main.bounds
+        let basePaddingValue = showBase ? 2 * basePadding : 0
+        return (size.width - (basePaddingValue + 4 * horizontalSpacing + 2 * calculatorPadding)) / 5
+    }
+
+    var getFullScreenWidth: CGFloat {
+        if showBase {
+            return 5 * getFullGridCellWidth() + 4 * horizontalSpacing + 2 * basePadding
+        } else {
+            return 5 * getFullGridCellWidth() + 4 * horizontalSpacing
         }
     }
 }

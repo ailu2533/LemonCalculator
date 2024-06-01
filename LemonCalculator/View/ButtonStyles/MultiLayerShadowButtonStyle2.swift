@@ -17,7 +17,7 @@ struct MultiLayerShadowButtonStyle2: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: 45, height: 45)
+            .frame(width: gridCellWidth, height: gridCellWidth)
             .background(
                 ZStack {
                     // Outer shadow
