@@ -25,7 +25,7 @@ enum CalcButton: String {
     case nine = "9"
     case zero = "0"
     case add = "+"
-    case subtract = "−"
+    case subtract = "-"
     case divide = "÷"
     case mutliply = "×"
     case equal = "="

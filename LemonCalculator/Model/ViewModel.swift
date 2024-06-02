@@ -14,6 +14,12 @@ class ViewModel {
     var modelContext: ModelContext
     var value: String = "0"
 
+    @ObservationIgnored
+    var lastToken: CalcButton?
+    
+    @ObservationIgnored
+    private var percentageRegex = try! NSRegularExpression(pattern: "(\\d+(\\.\\d+)?)%", options: [])
+
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
@@ -33,42 +39,138 @@ class ViewModel {
         case .del:
             if value != "0" {
                 value = String(value.dropLast())
+                value = replaceLastNumberWithFormatted(in: value)
                 if value.isEmpty {
                     value = "0"
                 }
             }
         case .equal:
-            let result = evaluateExpression(expression: value)
-            if result != "Error" {
-                // 将历史记录写入 user defaults
-                modelContext.insert(History(expression: value, result: result))
-
-                value = result
+            if lastToken != .equal {
+                let result = evaluateExpression(expression: value)
+                if result != "Error" {
+                    modelContext.insert(History(expression: value, result: result))
+                    value = result
+                }
             }
+        case .negative:
+            value = replaceLastNumber(in: value)
+        case .decimal, .add, .subtract, .mutliply, .divide:
+            value = value == "0" ? button.rawValue : value.appending(button.rawValue)
         default:
-            if value == "0" {
-                value = button.rawValue
-            } else {
-                value.append(button.rawValue)
+            value = value == "0" ? button.rawValue : replaceLastNumberWithFormatted(in: value.appending(button.rawValue))
+        }
+        lastToken = button
+    }
+
+    func replacePercentageExpressions(in input: String) -> String {
+        let range = NSRange(input.startIndex..<input.endIndex, in: input)
+        return percentageRegex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "($1*0.01)")
+    }
+
+    func replaceLastNumber(in expression: String) -> String {
+        // 正则表达式匹配可能包含逗号的数字或(-1*d)模式
+        let pattern = "([+-]?)([a-zA-Z0-9,.]+|\\(-1\\×[a-zA-Z0-9,.]+\\))(?!.*[a-zA-Z0-9,.])"
+
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let range = NSRange(expression.startIndex ..< expression.endIndex, in: expression)
+            var modifiedString = expression
+
+            let matches = regex.matches(in: expression, options: [], range: range)
+            if let lastMatch = matches.last {
+                let opRange = Range(lastMatch.range(at: 1), in: expression)!
+                let numRange = Range(lastMatch.range(at: 2), in: expression)!
+
+                let operatorSymbol = String(expression[opRange])
+                var number = String(expression[numRange])
+
+                // Check if the number is in the format (-1*d) and revert it
+                if number.hasPrefix("(-1×") && number.hasSuffix(")") {
+                    number = String(number.dropFirst(4).dropLast(1))
+                } else {
+                    // Apply the previous logic
+                    switch operatorSymbol {
+                    case "-":
+                        number = "+\(number)"
+                    case "+":
+                        number = "-\(number)"
+                    default:
+                        number = "(-1×\(number))"
+                    }
+                }
+
+                if let replacementRange = Range(lastMatch.range, in: expression) {
+                    modifiedString.replaceSubrange(replacementRange, with: number)
+                }
             }
+
+            // Remove leading '+' if it exists
+            if modifiedString.first == "+" {
+                modifiedString.removeFirst()
+            }
+
+            return modifiedString
+        } catch {
+            print("Regex error: \(error)")
+            return expression
+        }
+    }
+
+    func replaceLastNumberWithFormatted(in expression: String) -> String {
+        // 正则表达式匹配最后一个纯数字，不包括任何前置符号
+        let pattern = "([0-9,]+\\.?[0-9]*)(?!.*[0-9])"
+
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let range = NSRange(expression.startIndex ..< expression.endIndex, in: expression)
+            var modifiedString = expression
+
+            let matches = regex.matches(in: expression, options: [], range: range)
+            if let lastMatch = matches.last {
+                let numRange = Range(lastMatch.range, in: expression)!
+                let numberString = String(expression[numRange])
+
+                // Format the number
+                if let number = NumberFormatter().number(from: numberString.replacingOccurrences(of: ",", with: "")) {
+                    let formatter = NumberFormatter()
+                    formatter.numberStyle = .decimal // Customize this to the desired format
+                    if let formattedNumber = formatter.string(from: number) {
+                        modifiedString.replaceSubrange(numRange, with: formattedNumber)
+                    }
+                }
+            }
+
+            return modifiedString
+        } catch {
+            print("Regex error: \(error)")
+            return expression
         }
     }
 
     private func evaluateExpression(expression: String) -> String {
-        // This function should contain the logic to evaluate the mathematical expression
-        // For simplicity, let's assume it returns the input for now
-        let exp = value.replacingOccurrences(of: "×", with: "*")
+        // Prepare the expression by replacing symbols and handling percentage expressions
+        let preparedExpression = prepareExpressionForEvaluation(expression: expression)
+
+        // Evaluate the mathematical expression using the Expression library
+        let evaluator = Expression(preparedExpression)
+        do {
+            let result = try evaluator.evaluate()
+            return result.formatted()  // Assuming `formatted()` is a method that formats the result appropriately
+        } catch {
+            // Return a formatted error message instead of just "Error"
+            return "Error: \(error.localizedDescription)"
+        }
+    }
+
+    /// Prepares the mathematical expression by replacing symbols and handling percentage expressions.
+    private func prepareExpressionForEvaluation(expression: String) -> String {
+        var exp = expression
+            .replacingOccurrences(of: "×", with: "*")
             .replacingOccurrences(of: "÷", with: "/")
-            .replacingOccurrences(of: "−", with: "-")
             .replacingOccurrences(of: ",", with: "")
         
-        let expression = Expression(exp)
-        do {
-            let result = try expression.evaluate()
-            return result.formatted()
-        } catch {
-            print(error)
-            return "Error"
-        }
+        // Replace percentage expressions with their mathematical equivalents
+        exp = replacePercentageExpressions(in: exp)
+        return exp
     }
 }
