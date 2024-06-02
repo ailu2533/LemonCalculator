@@ -48,20 +48,23 @@ enum CalculatorThemeKind: Int, Identifiable, CaseIterable {
 }
 
 struct MainView: View {
+    @State private var selection = 1
+
     var body: some View {
-        TabView {
+        TabView(selection: $selection) {
             FullCalculatorView(theme: ClassicTheme()).tabItem {
                 Label("发现", systemImage: "house")
-            }
+            }.tag(1)
 
             CollectionView().tabItem {
                 Label("发现", systemImage: "sun.haze")
-            }
+            }.tag(2)
 
             SettingsView().tabItem {
                 Label("发现", systemImage: "gear")
-            }
+            }.tag(3)
         }
+    
     }
 }
 
@@ -69,9 +72,9 @@ struct Theme2: CalculatorTheme {
     var background: AnyView {
         AnyView(Color.clear)
     }
-    
+
     var texture: String? = nil
-    
+
     var screenTopPadding: CGFloat = 15
 
     var dividerPadding: CGFloat = 14
@@ -101,8 +104,7 @@ struct Theme2: CalculatorTheme {
     var showBase: Bool = true
     var basePadding: CGFloat = 8
     var baseBackground: Color = .black
-    
-    
+
     // 按钮颜色
     var functionButtonColor: Color = Color(.lightGray)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))

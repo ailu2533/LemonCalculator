@@ -9,13 +9,30 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+struct ViewOffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
 struct FullCalculatorView: View {
     @State private var tapCount = 0
 
     @Environment(ViewModel.self)
     private var vm
 
-    @Query private var histories: [History] = []
+    static var descriptor: FetchDescriptor<History> {
+        var descriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate)])
+        descriptor.fetchLimit = 30
+        return descriptor
+    }
+
+    @Query(descriptor)
+    private var histories: [History] = []
+
+    @State private var currentPage = 0
+    @State private var isLoading = false
 
     var theme: CalculatorTheme
 
@@ -24,13 +41,27 @@ struct FullCalculatorView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                LazyVStack(alignment: .trailing) {
-                    ForEach(histories) { history in
-                        Text("\(history.expression) = \(history.result)")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.secondary)
-                    }
-                }.padding(.trailing, 15)
+                ScrollViewReader(content: { scrollView in
+                    LazyVStack(alignment: .trailing, spacing: 12) {
+                        ForEach(histories) { history in
+                            Text("\(history.expression) = \(history.result)")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.secondary)
+                        }
+
+                        Rectangle() // 用作滚动到底部的锚点
+                            .frame(width: 0, height: 0)
+                            .id("bottom")
+
+                    }.padding(.trailing, 15)
+                        .onAppear {
+                            scrollView.scrollTo("bottom", anchor: .bottom)
+                        }
+                        .onChange(of: histories) { _, _ in
+                            scrollView.scrollTo("bottom", anchor: .bottom)
+                        }
+
+                })
             }
 //            .contentMargins(.all, 20)
             .background(theme.screenBackground)
@@ -87,6 +118,18 @@ struct FullCalculatorView: View {
 //        .ignoresSafeArea()
     }
 
+    func loadHistories(pageSize: Int, pageNumber: Int) -> [History] {
+        var fetchDescriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate, order: .reverse)])
+        fetchDescriptor.fetchOffset = pageNumber * pageSize
+        fetchDescriptor.fetchLimit = pageSize
+
+        do {
+            return try vm.modelContext.fetch(fetchDescriptor)
+        } catch {
+            return []
+        }
+    }
+
     func didTap(button: CalcButton) {
         vm.didTap(button: button)
     }
@@ -95,6 +138,5 @@ struct FullCalculatorView: View {
 #Preview {
     FullCalculatorView(theme: ClassicTheme())
 }
-
 
 // https://github.com/or1onsli/Calculator/blob/main/Calculator/CalculatorBrain.swift

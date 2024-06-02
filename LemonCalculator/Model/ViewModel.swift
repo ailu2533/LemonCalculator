@@ -16,9 +16,9 @@ class ViewModel {
 
     @ObservationIgnored
     var lastToken: CalcButton?
-    
+
     @ObservationIgnored
-    private var percentageRegex = try! NSRegularExpression(pattern: "(\\d+(\\.\\d+)?)%", options: [])
+    private lazy var percentageRegex = try! NSRegularExpression(pattern: "(\\d+(\\.\\d+)?)%", options: [])
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
@@ -52,18 +52,58 @@ class ViewModel {
                     value = result
                 }
             }
+
         case .negative:
             value = replaceLastNumber(in: value)
-        case .decimal, .add, .subtract, .mutliply, .divide:
-            value = value == "0" ? button.rawValue : value.appending(button.rawValue)
+
+        case .decimal:
+            // 如果前一个符号不是数字，则要 append 一个 0
+
+            // 忽略连续的.
+            if value.last! == "." {
+                break
+            }
+
+            handleDecimalInput()
+
+        case .add, .subtract, .mutliply, .divide:
+            value = value.appending(button.rawValue)
         default:
             value = value == "0" ? button.rawValue : replaceLastNumberWithFormatted(in: value.appending(button.rawValue))
         }
         lastToken = button
     }
 
+    private func handleDecimalInput() {
+        // 如果前一个符号不是数字，则要 append 一个 0
+        if let lastCharacter = value.last, !lastCharacter.isNumber {
+            value.append("0.")
+        } else {
+            // 解析最后一个数，看看是不是小数
+            if let lastNumber = extractLastNumber(from: value), !lastNumber.contains(".") {
+                value.append(".")
+            }
+        }
+    }
+
+    private func extractLastNumber(from expression: String) -> String? {
+        let pattern = "([0-9]*\\.?[0-9]+)(?!.*[0-9])"
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
+            let range = NSRange(expression.startIndex ..< expression.endIndex, in: expression)
+            let matches = regex.matches(in: expression, options: [], range: range)
+            if let lastMatch = matches.last {
+                let numRange = Range(lastMatch.range, in: expression)!
+                return String(expression[numRange])
+            }
+        } catch {
+            print("Regex error: \(error)")
+        }
+        return nil
+    }
+
     func replacePercentageExpressions(in input: String) -> String {
-        let range = NSRange(input.startIndex..<input.endIndex, in: input)
+        let range = NSRange(input.startIndex ..< input.endIndex, in: input)
         return percentageRegex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "($1*0.01)")
     }
 
@@ -130,12 +170,14 @@ class ViewModel {
                 let numRange = Range(lastMatch.range, in: expression)!
                 let numberString = String(expression[numRange])
 
-                // Format the number
-                if let number = NumberFormatter().number(from: numberString.replacingOccurrences(of: ",", with: "")) {
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .decimal // Customize this to the desired format
-                    if let formattedNumber = formatter.string(from: number) {
-                        modifiedString.replaceSubrange(numRange, with: formattedNumber)
+                // Format the number if it is an integer (no decimal point)
+                if !numberString.contains(".") {
+                    if let number = NumberFormatter().number(from: numberString.replacingOccurrences(of: ",", with: "")) {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .decimal // Customize this to the desired format
+                        if let formattedNumber = formatter.string(from: number) {
+                            modifiedString.replaceSubrange(numRange, with: formattedNumber)
+                        }
                     }
                 }
             }
@@ -155,10 +197,25 @@ class ViewModel {
         let evaluator = Expression(preparedExpression)
         do {
             let result = try evaluator.evaluate()
-            return result.formatted()  // Assuming `formatted()` is a method that formats the result appropriately
+            return formatResult(result) // Assuming `formatted()` is a method that formats the result appropriately
         } catch {
             // Return a formatted error message instead of just "Error"
             return "Error: \(error.localizedDescription)"
+        }
+    }
+
+    /// Formats the result to retain up to 9 decimal places.
+    private func formatResult(_ result: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 9 // Set to 9 to retain up to 9 decimal places
+        formatter.usesGroupingSeparator = true // Set to true if you want to use grouping separators like commas
+
+        if let formattedString = formatter.string(from: NSNumber(value: result)) {
+            return formattedString
+        } else {
+            return "\(result)" // Fallback to the default string representation
         }
     }
 
@@ -168,9 +225,15 @@ class ViewModel {
             .replacingOccurrences(of: "×", with: "*")
             .replacingOccurrences(of: "÷", with: "/")
             .replacingOccurrences(of: ",", with: "")
-        
+
         // Replace percentage expressions with their mathematical equivalents
         exp = replacePercentageExpressions(in: exp)
+
+        // Remove trailing non-numeric characters (operators and decimal points)
+        while let lastChar = exp.last, !lastChar.isNumber {
+            exp.removeLast()
+        }
+
         return exp
     }
 }
