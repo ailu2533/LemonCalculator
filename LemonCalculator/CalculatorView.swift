@@ -2,7 +2,7 @@ import SwiftUI
 
 let buttons: [[CalcButton]] = [
     [.clear, .seven, .eight, .nine, .divide],
-    [.negative, .four, .five, .six, .mutliply],
+    [.negative, .four, .five, .six, .multiply],
     [.percent, .one, .two, .three, .subtract],
     [.del, .zero, .decimal, .equal, .add],
 ]
@@ -27,7 +27,7 @@ enum CalcButton: String {
     case add = "+"
     case subtract = "-"
     case divide = "÷"
-    case mutliply = "×"
+    case multiply = "×"
     case equal = "="
     case clear = "AC"
     case decimal = "."
@@ -37,7 +37,7 @@ enum CalcButton: String {
 
     var background: Color {
         switch self {
-        case .add, .subtract, .mutliply, .divide, .equal:
+        case .add, .subtract, .multiply, .divide, .equal:
             return .orange
         case .clear, .negative, .percent, .del:
             return Color(.lightGray)
@@ -48,7 +48,7 @@ enum CalcButton: String {
 
     var kind: CalculatorButtonKind {
         switch self {
-        case .add, .subtract, .mutliply, .divide, .equal:
+        case .add, .subtract, .multiply, .divide, .equal:
             return .operator_
         case .clear, .negative, .percent, .del:
             return .function
@@ -66,7 +66,7 @@ enum CalcButton: String {
             Image(systemName: "plus")
         case .subtract:
             Image(systemName: "minus")
-        case .mutliply:
+        case .multiply:
             Image(systemName: "multiply")
         case .divide:
             Image(systemName: "divide")
@@ -134,7 +134,8 @@ struct CalculatorView: View {
                 Text("0000")
 
                     .bold()
-                    .font(.custom("DigitalNumbers-Regular", size: 20))
+                    .font(.system(size: 20))
+                    .fontWeight(.bold)
                     .foregroundColor(.black).padding(.trailing)
                     .padding(.vertical, 15)
             }

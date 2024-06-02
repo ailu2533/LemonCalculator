@@ -2,7 +2,7 @@ import SwiftUI
 
 let buttons: [[CalcButton]] = [
     [.clear, .seven, .eight, .nine, .add],
-    [.negative, .four, .five, .six, .mutliply],
+    [.negative, .four, .five, .six, .multiply],
     [.percent, .one, .two, .three, .subtract],
     [.zero, .decimal, .equal, .add],
 ]
@@ -21,7 +21,7 @@ enum CalcButton: String {
     case add = "+"
     case subtract = "-"
     case divide = "÷"
-    case mutliply = "x"
+    case multiply = "x"
     case equal = "="
     case clear = "AC"
     case decimal = "."
@@ -30,7 +30,7 @@ enum CalcButton: String {
 
     var buttonColor: Color {
         switch self {
-        case .add, .subtract, .mutliply, .divide, .equal:
+        case .add, .subtract, .multiply, .divide, .equal:
             return .orange
         case .clear, .negative, .percent:
             return Color(.lightGray)

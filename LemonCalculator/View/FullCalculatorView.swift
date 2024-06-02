@@ -19,7 +19,7 @@ struct FullScreenTheme: CalculatorTheme {
 
     var dividerPadding: CGFloat = 20
 
-    var buttonTextSize: CGFloat = 24
+    var buttonTextSize: CGFloat = 30
 
     let horizontalSpacing: CGFloat = 10
     let verticalSpacing: CGFloat = 20
@@ -80,9 +80,18 @@ struct FullCalculatorView: View {
                 ScrollView {
                     LazyVStack(alignment: .trailing, spacing: 12) {
                         ForEach(histories.reversed()) { history in
-                            Text("\(history.expression) = \(history.result)")
-                                .font(.system(size: 20))
-                                .foregroundStyle(.mdWhite)
+                            HStack {
+                                Text("\(history.expression)")
+                                Text("=")
+                                Text("\(history.result)")
+                                    .fontWeight(.medium)
+                                    .padding(3)
+                                    .frame(minWidth: 40)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(.blue)
+                                    }
+                            }.foregroundStyle(Color.white)
                         }
 
                         Rectangle() // 用作滚动到底部的锚点
@@ -92,13 +101,17 @@ struct FullCalculatorView: View {
                     }.padding(.trailing, 15)
 
                 }.onAppear {
-                    scrollView.scrollTo("bottom", anchor: .bottom)
+                    withAnimation {
+                        scrollView.scrollTo("bottom", anchor: .bottom)
+                    }
                 }
                 .onChange(of: histories) { _, _ in
-                    scrollView.scrollTo("bottom", anchor: .bottom)
+                    withAnimation {
+                        scrollView.scrollTo("bottom", anchor: .bottom)
+                    }
                 }
             }
-            .padding(.top, 1)
+            .padding(.top, 10)
 
             HStack {
                 Spacer()
@@ -122,6 +135,7 @@ struct FullCalculatorView: View {
 
                             }, label: {
                                 button.view
+                                    .fontWeight(.bold)
                             })
                             .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
                         }

@@ -17,6 +17,7 @@ struct MultiLayerShadowButtonStyle2: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .font(.system(size: buttonTextSize))
             .frame(width: gridCellWidth, height: gridCellWidth)
             .background(
                 ZStack {
