@@ -74,73 +74,66 @@ struct FullCalculatorView: View {
 //    let size: CGSize = .init(width: 338, height: 354)
 
     var body: some View {
-        ZStack {
-            Color.classicBlack.ignoresSafeArea()
-            VStack(spacing: 0) {
+        VStack(spacing: 10) {
+            ScrollViewReader { scrollView in
+
                 ScrollView {
-                    ScrollViewReader(content: { scrollView in
-                        LazyVStack(alignment: .trailing, spacing: 12) {
-                            ForEach(histories.reversed()) { history in
-                                Text("\(history.expression) = \(history.result)")
-                                    .font(.system(size: 20))
-                                    .foregroundStyle(.mdWhite)
-                            }
+                    LazyVStack(alignment: .trailing, spacing: 12) {
+                        ForEach(histories.reversed()) { history in
+                            Text("\(history.expression) = \(history.result)")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.mdWhite)
+                        }
 
-                            Rectangle() // 用作滚动到底部的锚点
-                                .frame(width: 0, height: 0)
-                                .id("bottom")
+                        Rectangle() // 用作滚动到底部的锚点
+                            .frame(width: 0, height: 0)
+                            .id("bottom")
 
-                        }.padding(.trailing, 15)
-                            .onAppear {
-                                scrollView.scrollTo("bottom", anchor: .bottom)
-                            }
-                            .onChange(of: histories) { _, _ in
-                                scrollView.scrollTo("bottom", anchor: .bottom)
-                            }
+                    }.padding(.trailing, 15)
 
-                    })
+                }.onAppear {
+                    scrollView.scrollTo("bottom", anchor: .bottom)
                 }
-
-                HStack {
-                    Spacer()
-                    Text(vm.value)
-
-                        .bold()
-                        .font(.system(size: 32))
-                        .foregroundColor(.mdWhite).padding(.trailing)
-                        .padding(.vertical, 15)
+                .onChange(of: histories) { _, _ in
+                    scrollView.scrollTo("bottom", anchor: .bottom)
                 }
+            }
+            .padding(.top, 1)
 
+            HStack {
+                Spacer()
+                Text(vm.value)
+                    .bold()
+                    .font(.system(size: 32))
+                    .foregroundColor(.mdWhite).padding(.trailing)
+//                        .padding(.vertical, 15)
+            }
 
-                Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
-                    ForEach(buttons.indices, id: \.self) { rowIndex in
-                        GridRow {
-                            ForEach(buttons[rowIndex], id: \.self) { button in
+            Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
+                ForEach(buttons.indices, id: \.self) { rowIndex in
+                    GridRow {
+                        ForEach(buttons[rowIndex], id: \.self) { button in
 
-                                let buttonColor = theme.getButtonColor(button)
+                            let buttonColor = theme.getButtonColor(button)
 
-                                Button(action: {
-                                    self.tapCount += 1
-                                    self.didTap(button: button)
+                            Button(action: {
+                                self.tapCount += 1
+                                self.didTap(button: button)
 
-                                }, label: {
-                                    button.view
-                                })
-                                .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
-                            }
+                            }, label: {
+                                button.view
+                            })
+                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
                         }
                     }
-
-                }.padding(.vertical, 20)
-                    .containerRelativeFrame(.horizontal)
+                }
             }
+            .padding(.vertical, 20)
+            .containerRelativeFrame(.horizontal)
         }
-       
-        
-     
+        .background(Color.classicBlack.ignoresSafeArea())
 
         .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
-
     }
 
     func loadHistories(pageSize: Int, pageNumber: Int) -> [History] {

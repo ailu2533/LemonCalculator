@@ -63,20 +63,19 @@ struct MainView: View {
             SettingsView().tabItem {
                 Label("发现", systemImage: "gear")
             }.tag(3)
-        }  .onAppear {
+        }.onAppear {
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.stackedLayoutAppearance.normal.iconColor = .gray
             appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-            
+
             appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.black)
             appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color.black)]
             appearance.backgroundColor = UIColor(Color.classicBlack)
-            
+
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
-    
     }
 }
 
