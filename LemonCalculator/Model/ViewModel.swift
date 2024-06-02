@@ -47,7 +47,7 @@ class ViewModel {
         case .equal:
             if lastToken != .equal {
                 let result = evaluateExpression(expression: value)
-                if result != "Error" {
+                if !result.hasPrefix("Error") {
                     modelContext.insert(History(expression: value, result: result))
                     value = result
                 }
@@ -66,7 +66,7 @@ class ViewModel {
 
             handleDecimalInput()
 
-        case .add, .subtract, .mutliply, .divide:
+        case .add, .subtract, .mutliply, .divide, .percent:
             handleOperatorInput(button: button)
         default:
             value = value == "0" ? button.rawValue : replaceLastNumberWithFormatted(in: value.appending(button.rawValue))
@@ -75,7 +75,7 @@ class ViewModel {
     }
 
     private func handleOperatorInput(button: CalcButton) {
-        if let lastCharacter = value.last, [CalcButton.add, CalcButton.subtract, CalcButton.mutliply, CalcButton.divide, CalcButton.decimal].contains(CalcButton(rawValue: String(lastCharacter))) {
+        if let lastCharacter = value.last, [CalcButton.add, CalcButton.subtract, CalcButton.mutliply, CalcButton.divide, CalcButton.decimal, CalcButton.percent].contains(CalcButton(rawValue: String(lastCharacter))) {
             // 如果最后一个字符是运算符，则替换它
             value.removeLast()
             value.append(button.rawValue)
@@ -250,7 +250,9 @@ class ViewModel {
            [CalcButton.add,
             CalcButton.subtract,
             CalcButton.mutliply,
-            CalcButton.divide].contains(CalcButton(rawValue: String(lastCharacter))) {
+            CalcButton.divide,
+            CalcButton.decimal
+           ].contains(CalcButton(rawValue: String(lastCharacter))) {
             exp.removeLast()
         }
 
