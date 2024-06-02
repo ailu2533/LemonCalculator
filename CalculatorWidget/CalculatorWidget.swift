@@ -39,11 +39,12 @@ struct CalculatorWidgetEntryView: View {
 
     var body: some View {
         VStack {
-            if entry.configuration.event?.widgetTitle == "经典" {
-                CalculatorView(theme: ClassicTheme())
-            } else {
-                CalculatorView(theme: MdWhiteTheme())
-            }
+//            if entry.configuration.event?.widgetTitle == "经典" {
+//                CalculatorView(theme: ClassicTheme())
+//            } else {
+//                CalculatorView(theme: MdWhiteTheme())
+//            }
+            WidgetCalculatorView(theme: ClassicTheme())
         }
     }
 }

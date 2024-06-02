@@ -58,6 +58,7 @@
 		27B777232C0CB063008D5902 /* CalcButtonIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777222C0CB063008D5902 /* CalcButtonIntent.swift */; };
 		27B777252C0CB6C8008D5902 /* CalculatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777242C0CB6C8008D5902 /* CalculatorLogic.swift */; };
 		27B777262C0CB6C8008D5902 /* CalculatorLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777242C0CB6C8008D5902 /* CalculatorLogic.swift */; };
+		27B777282C0CBF2F008D5902 /* WidgetCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777272C0CBF2F008D5902 /* WidgetCalculatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		27B777202C0C927E008D5902 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		27B777222C0CB063008D5902 /* CalcButtonIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcButtonIntent.swift; sourceTree = "<group>"; };
 		27B777242C0CB6C8008D5902 /* CalculatorLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorLogic.swift; sourceTree = "<group>"; };
+		27B777272C0CBF2F008D5902 /* WidgetCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetCalculatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,9 +306,10 @@
 				27B776BE2C0B3FEB008D5902 /* CalculatorWidgetBundle.swift */,
 				27B776C02C0B3FEB008D5902 /* CalculatorWidget.swift */,
 				27B776C22C0B3FEB008D5902 /* AppIntent.swift */,
+				27B777222C0CB063008D5902 /* CalcButtonIntent.swift */,
 				27B776C42C0B3FEC008D5902 /* Assets.xcassets */,
 				27B776C62C0B3FEC008D5902 /* Info.plist */,
-				27B777222C0CB063008D5902 /* CalcButtonIntent.swift */,
+				27B777272C0CBF2F008D5902 /* WidgetCalculatorView.swift */,
 			);
 			path = CalculatorWidget;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27B777282C0CBF2F008D5902 /* WidgetCalculatorView.swift in Sources */,
 				27B776DE2C0B628F008D5902 /* FullCalculatorView.swift in Sources */,
 				27B776CD2C0B4059008D5902 /* CalculatorView.swift in Sources */,
 				27B776DB2C0B5BCA008D5902 /* Color+.swift in Sources */,

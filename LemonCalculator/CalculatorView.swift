@@ -152,7 +152,6 @@ struct CalculatorView: View {
 
             .shadow(color: theme.screenShadowColor,
                     radius: theme.screenShadowRadius)
-//            .padding(.top, 6)
 
             Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
                 ForEach(buttons.indices, id: \.self) { rowIndex in
