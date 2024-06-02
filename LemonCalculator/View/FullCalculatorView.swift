@@ -23,7 +23,7 @@ struct FullCalculatorView: View {
     private var vm
 
     static var descriptor: FetchDescriptor<History> {
-        var descriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate)])
+        var descriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate,order: .reverse)])
         descriptor.fetchLimit = 30
         return descriptor
     }
@@ -43,7 +43,7 @@ struct FullCalculatorView: View {
             ScrollView {
                 ScrollViewReader(content: { scrollView in
                     LazyVStack(alignment: .trailing, spacing: 12) {
-                        ForEach(histories) { history in
+                        ForEach(histories.reversed()) { history in
                             Text("\(history.expression) = \(history.result)")
                                 .font(.system(size: 20))
                                 .foregroundStyle(.secondary)

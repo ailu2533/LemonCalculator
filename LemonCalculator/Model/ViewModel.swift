@@ -75,7 +75,7 @@ class ViewModel {
     }
 
     private func handleOperatorInput(button: CalcButton) {
-        if let lastCharacter = value.last, [CalcButton.add, CalcButton.subtract, CalcButton.mutliply, CalcButton.divide].contains(CalcButton(rawValue: String(lastCharacter))) {
+        if let lastCharacter = value.last, [CalcButton.add, CalcButton.subtract, CalcButton.mutliply, CalcButton.divide, CalcButton.decimal].contains(CalcButton(rawValue: String(lastCharacter))) {
             // 如果最后一个字符是运算符，则替换它
             value.removeLast()
             value.append(button.rawValue)
@@ -211,7 +211,7 @@ class ViewModel {
             return formatResult(result) // Assuming `formatted()` is a method that formats the result appropriately
         } catch {
             // Return a formatted error message instead of just "Error"
-            return "Error: \(error.localizedDescription)"
+            return "Error: \(error.localizedDescription) \(preparedExpression)"
         }
     }
 
@@ -241,7 +241,16 @@ class ViewModel {
         exp = replacePercentageExpressions(in: exp)
 
         // Remove trailing non-numeric characters (operators and decimal points)
-        while let lastChar = exp.last, !lastChar.isNumber {
+//        while let lastChar = exp.last, !lastChar.isNumber {
+//            exp.removeLast()
+//        }
+//
+
+        if let lastCharacter = value.last,
+           [CalcButton.add,
+            CalcButton.subtract,
+            CalcButton.mutliply,
+            CalcButton.divide].contains(CalcButton(rawValue: String(lastCharacter))) {
             exp.removeLast()
         }
 
