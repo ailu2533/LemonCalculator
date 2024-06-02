@@ -67,11 +67,22 @@ class ViewModel {
             handleDecimalInput()
 
         case .add, .subtract, .mutliply, .divide:
-            value = value.appending(button.rawValue)
+            handleOperatorInput(button: button)
         default:
             value = value == "0" ? button.rawValue : replaceLastNumberWithFormatted(in: value.appending(button.rawValue))
         }
         lastToken = button
+    }
+
+    private func handleOperatorInput(button: CalcButton) {
+        if let lastCharacter = value.last, [CalcButton.add, CalcButton.subtract, CalcButton.mutliply, CalcButton.divide].contains(CalcButton(rawValue: String(lastCharacter))) {
+            // 如果最后一个字符是运算符，则替换它
+            value.removeLast()
+            value.append(button.rawValue)
+        } else {
+            // 如果最后一个字符不是运算符，则直接追加
+            value.append(button.rawValue)
+        }
     }
 
     private func handleDecimalInput() {
