@@ -124,6 +124,7 @@ struct CalculatorView: View {
     @State private var tapCount = 0
 
     var theme: CalculatorTheme
+    
 
     let size: CGSize = .init(width: 338, height: 354)
 

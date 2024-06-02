@@ -49,6 +49,10 @@
 		27B776E12C0B6C0C008D5902 /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = 27B776E02C0B6C0C008D5902 /* Expression */; };
 		27B776E22C0B74D8008D5902 /* Calculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776672C0AC333008D5902 /* Calculator.swift */; };
 		27B776E42C0B74F4008D5902 /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = 27B776E32C0B74F4008D5902 /* Expression */; };
+		27B776E62C0B7BED008D5902 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776E52C0B7BED008D5902 /* HistoryManager.swift */; };
+		27B776E92C0B7F5B008D5902 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776E82C0B7F5B008D5902 /* ViewModel.swift */; };
+		27B776EA2C0B7F5B008D5902 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776E82C0B7F5B008D5902 /* ViewModel.swift */; };
+		27B776EB2C0B8166008D5902 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B776E52C0B7BED008D5902 /* HistoryManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +128,8 @@
 		27B776D62C0B5AAD008D5902 /* StripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripView.swift; sourceTree = "<group>"; };
 		27B776D92C0B5BCA008D5902 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		27B776DC2C0B628F008D5902 /* FullCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCalculatorView.swift; sourceTree = "<group>"; };
+		27B776E52C0B7BED008D5902 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
+		27B776E82C0B7F5B008D5902 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +253,8 @@
 			isa = PBXGroup;
 			children = (
 				27B776732C0AE23B008D5902 /* ThemeModel.swift */,
+				27B776E52C0B7BED008D5902 /* HistoryManager.swift */,
+				27B776E82C0B7F5B008D5902 /* ViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -473,9 +481,11 @@
 				27B776D42C0B438B008D5902 /* SizeHelper.swift in Sources */,
 				27B776D72C0B5AAD008D5902 /* StripView.swift in Sources */,
 				27B7767B2C0B158D008D5902 /* Themes.swift in Sources */,
+				27B776E92C0B7F5B008D5902 /* ViewModel.swift in Sources */,
 				27B776682C0AC333008D5902 /* Calculator.swift in Sources */,
 				27B776DD2C0B628F008D5902 /* FullCalculatorView.swift in Sources */,
 				27B7766C2C0ACE92008D5902 /* MainView.swift in Sources */,
+				27B776E62C0B7BED008D5902 /* HistoryManager.swift in Sources */,
 				27B7766A2C0AC69F008D5902 /* CalculatorThemeProtocol.swift in Sources */,
 				27B776742C0AE23B008D5902 /* ThemeModel.swift in Sources */,
 				27B776782C0AEF52008D5902 /* MetalicButtonStyle.swift in Sources */,
@@ -507,8 +517,10 @@
 				27B776CD2C0B4059008D5902 /* CalculatorView.swift in Sources */,
 				27B776DB2C0B5BCA008D5902 /* Color+.swift in Sources */,
 				27B776D02C0B406A008D5902 /* Themes.swift in Sources */,
+				27B776EB2C0B8166008D5902 /* HistoryManager.swift in Sources */,
 				27B776D82C0B5AAD008D5902 /* StripView.swift in Sources */,
 				27B776E22C0B74D8008D5902 /* Calculator.swift in Sources */,
+				27B776EA2C0B7F5B008D5902 /* ViewModel.swift in Sources */,
 				27B776BF2C0B3FEB008D5902 /* CalculatorWidgetBundle.swift in Sources */,
 				27B776CF2C0B4064008D5902 /* MultiLayerShadowButtonStyle2.swift in Sources */,
 				27B776C12C0B3FEB008D5902 /* CalculatorWidget.swift in Sources */,

@@ -6,41 +6,50 @@
 //
 
 import Foundation
+import SwiftData
 import SwiftUI
-
-
 
 struct FullCalculatorView: View {
     @State private var tapCount = 0
 
+    @Environment(ViewModel.self)
+    private var vm
+
+    @Query private var histories: [History] = []
+
     var theme: CalculatorTheme
 
     let size: CGSize = .init(width: 338, height: 354)
-    
-    let calculator = Calculator()
 
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                
-            }.background(theme.screenBackground)
+                LazyVStack(alignment: .trailing) {
+                    ForEach(histories) { history in
+                        Text("\(history.expression) = \(history.result)")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.secondary)
+                    }
+                }.padding(.trailing, 15)
+            }
+//            .contentMargins(.all, 20)
+            .background(theme.screenBackground)
             HStack {
                 Spacer()
-                Text(calculator.value)
+                Text(vm.value)
 
                     .bold()
+                    .font(.system(size: 32))
 //                    .font(.custom("DigitalNumbers-Regular", size: 24))
                     .foregroundColor(.black).padding(.trailing)
                     .padding(.vertical, 15)
             }
             .background(theme.screenBackground)
-
+//            .contentMargins(20, for: .automatic)
             .background(content: {
                 RoundedRectangle(cornerRadius: theme.cornerRadius)
                     .fill(.white)
             })
-
-
 
             Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
                 ForEach(buttons.indices, id: \.self) { rowIndex in
@@ -73,28 +82,19 @@ struct FullCalculatorView: View {
                 }
         }
 
-//        .background {
-//            theme.background
-//        }
-
-//        .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
-//        .shadow(color: theme.calculatorBorderShadowColor,
-//                radius: theme.calculatorBorderShadowRadius)
-//        .background {
-//            RoundedRectangle(cornerRadius: 12)
-//                .fill(theme.calculatorBackground)
-//        }
-
         .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
-        
+
 //        .ignoresSafeArea()
     }
 
     func didTap(button: CalcButton) {
-        calculator.didTap(button: button)
+        vm.didTap(button: button)
     }
 }
 
 #Preview {
     FullCalculatorView(theme: ClassicTheme())
 }
+
+
+// https://github.com/or1onsli/Calculator/blob/main/Calculator/CalculatorBrain.swift
