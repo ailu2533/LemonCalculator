@@ -46,7 +46,7 @@ struct GeekGreenTheme: CalculatorTheme {
 
     var showBase: Bool = true
     var basePadding: CGFloat = 8
-    var baseBackground: Color = .black.opacity(0.4)
+    var baseBackground: Color = Color(hex: "#1a1115")!
 
     // 按钮颜色
     var functionButtonColor: Color = Color(.blue)

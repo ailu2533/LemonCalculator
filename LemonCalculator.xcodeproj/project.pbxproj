@@ -34,6 +34,7 @@
 		27B777332C0D968F008D5902 /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777322C0D968F008D5902 /* ThemeConfig.swift */; };
 		27B777352C0DA93D008D5902 /* GeekGreenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777342C0DA93C008D5902 /* GeekGreenTheme.swift */; };
 		27B777372C0DAAF6008D5902 /* BaseTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27B777362C0DAAF6008D5902 /* BaseTheme.swift */; };
+		27B7773D2C0DC268008D5902 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 27B7773C2C0DC268008D5902 /* InfoPlist.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +92,7 @@
 		27B777322C0D968F008D5902 /* ThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
 		27B777342C0DA93C008D5902 /* GeekGreenTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeekGreenTheme.swift; sourceTree = "<group>"; };
 		27B777362C0DAAF6008D5902 /* BaseTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTheme.swift; sourceTree = "<group>"; };
+		27B7773C2C0DC268008D5902 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				27B776432C0AAB98008D5902 /* Preview Content */,
 				27B776672C0AC333008D5902 /* Calculator.swift */,
 				27B7766B2C0ACE92008D5902 /* MainView.swift */,
+				27B7773C2C0DC268008D5902 /* InfoPlist.xcstrings */,
 			);
 			path = LemonCalculator;
 			sourceTree = "<group>";
@@ -289,11 +292,11 @@
 			};
 			buildConfigurationList = 27B776352C0AAB97008D5902 /* Build configuration list for PBXProject "LemonCalculator" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 27B776312C0AAB97008D5902;
 			packageReferences = (
@@ -315,6 +318,7 @@
 			files = (
 				27B776812C0B3235008D5902 /* sa-digital-number.ttf in Resources */,
 				27B776452C0AAB98008D5902 /* Preview Assets.xcassets in Resources */,
+				27B7773D2C0DC268008D5902 /* InfoPlist.xcstrings in Resources */,
 				27B776422C0AAB98008D5902 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,7 +411,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -464,7 +468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -481,12 +485,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LemonCalculator/Preview Content\"";
 				DEVELOPMENT_TEAM = S3879FFC37;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LemonCalculator/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "柠檬计算器";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -499,9 +505,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = top.lemonapp.LemonCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -512,12 +522,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LemonCalculator/Preview Content\"";
 				DEVELOPMENT_TEAM = S3879FFC37;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LemonCalculator/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "柠檬计算器";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -530,9 +542,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = top.lemonapp.LemonCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

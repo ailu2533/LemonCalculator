@@ -24,9 +24,9 @@ enum SkinKind: Int, CaseIterable, Identifiable {
         case .white:
             "白色"
         case .green:
-            "绿色"
-        case .colorful:
             "多彩"
+        case .colorful:
+            "简洁"
         }
     }
 

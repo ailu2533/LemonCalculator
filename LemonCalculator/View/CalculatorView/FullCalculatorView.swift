@@ -44,7 +44,9 @@ struct FullCalculatorView: View {
             }
         }
         .sheet(isPresented: $vm.showSettingsSheet, content: {
-            SettingsView()
+            SettingsView().presentationDetents([.medium])
+            
+                
         })
         .sheet(isPresented: $vm.showSkinSheet, content: {
             CollectionView()
