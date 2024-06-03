@@ -129,15 +129,30 @@ struct FullCalculatorView: View {
 
                             let buttonColor = theme.getButtonColor(button)
 
-                            Button(action: {
-                                self.tapCount += 1
-                                self.didTap(button: button)
+                            if button == CalcButton.zero {
+                                Button(action: {
+                                    self.tapCount += 1
+                                    self.didTap(button: button)
 
-                            }, label: {
-                                button.view
-                                    .fontWeight(.bold)
-                            })
-                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
+                                }, label: {
+                                    button.view
+                                        .fontWeight(.bold)
+                                })
+                                .gridCellColumns(2)
+
+                                .buttonStyle(MultiLayerShadowButtonStyle3(gridCellHeight: theme.getGridCellWidth(), gridCellWidth: theme.getGridCellWidth() * 2 + theme.horizontalSpacing, buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
+                            } else {
+                                Button(action: {
+                                    self.tapCount += 1
+                                    self.didTap(button: button)
+
+                                }, label: {
+                                    button.view
+                                        .fontWeight(.bold)
+                                })
+
+                                .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
+                            }
                         }
                     }
                 }

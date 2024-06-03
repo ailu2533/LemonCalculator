@@ -1,11 +1,11 @@
 import SwiftUI
 
 let buttons: [[CalcButton]] = [
-    [.clear, .seven, .eight, .nine, .divide],
-    [.negative, .four, .five, .six, .multiply],
-    [.percent, .one, .two, .three, .subtract],
-    [.del, .zero, .decimal, .add, .add],
-    [.settings, .leftParen, .rightParen, .equal, .equal],
+    [.clear, .leftParen, .rightParen, .del, .divide],
+    [.negative, .seven, .eight, .nine, .multiply],
+    [.percent, .four, .five, .six, .subtract],
+    [.skin, .one, .two, .three, .add],
+    [.settings, .zero, .decimal, .equal],
 ]
 
 enum CalculatorButtonKind: Int {
