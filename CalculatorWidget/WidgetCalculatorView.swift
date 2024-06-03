@@ -88,31 +88,90 @@ struct WidgetCalculatorView: View {
             .shadow(color: theme.screenShadowColor,
                     radius: theme.screenShadowRadius)
 
-            Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
-                ForEach(buttons.indices, id: \.self) { rowIndex in
-                    GridRow {
-                        ForEach(buttons[rowIndex], id: \.self) { button in
-
-                            let buttonColor = theme.getButtonColor(button)
-                            
-                            Button(intent: OneCalc()) {
-                                button.view
-                            }
-
-                            .buttonStyle(MultiLayerShadowButtonStyle3(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
-                        }
+            VStack {
+                HStack {
+                    Button(intent: ClearCalc()) {
+                        Text("AC")
+                    }
+                    Button(intent: SevenCalc()) {
+                        Text("7")
+                    }
+                    Button(intent: EightCalc()) {
+                        Text("8")
+                    }
+                    Button(intent: ClearCalc()) {
+                        Text("9")
+                    }
+                    Button(intent: DivideCalc()) {
+                        Image(systemName: "divide")
                     }
                 }
+                .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
 
-            }.padding(theme.basePadding)
-                .background {
-                    if theme.showBase {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(theme.baseBackground)
-                            .blur(radius: 0.6)
-                            .shadow(radius: 3)
+                HStack {
+                    Button(intent: NegativeCalc()) {
+                        Image(systemName: "plus.forwardslash.minus")
                     }
+                    Button(intent: FourCalc()) {
+                        Text("4")
+                    }
+                    Button(intent: FiveCalc()) {
+                        Text("5")
+                    }
+                    Button(intent: SixCalc()) {
+                        Text("6")
+                    }
+                    Button(intent: MultiplyCalc()) {
+                        Image(systemName: "multiply")
+                    }
+                }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
+
+                HStack {
+                    Button(intent: PercentCalc()) {
+                        Image(systemName: "percent")
+                    }
+                    Button(intent: OneCalc()) {
+                        Text("1")
+                    }
+                    Button(intent: TwoCalc()) {
+                        Text("2")
+                    }
+                    Button(intent: ThreeCalc()) {
+                        Text("3")
+                    }
+                    Button(intent: SubtractCalc()) {
+                        Image(systemName: "minus")
+                    }
+                }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
+
+                HStack {
+                    Button(intent: DelCalc()) {
+                        Image(systemName: "delete.left")
+                    }
+                    Button(intent: ZeroCalc()) {
+                        Text("0")
+                    }
+                    Button(intent: DecimalCalc()) {
+                        Text(".")
+                    }
+                    Button(intent: EqualCalc()) {
+                        Image(systemName: "equal")
+                    }
+                    Button(intent: AddCalc()) {
+                        Image(systemName: "plus")
+                    }
+                }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
+            }
+
+            .padding(theme.basePadding)
+            .background {
+                if theme.showBase {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(theme.baseBackground)
+                        .blur(radius: 0.6)
+                        .shadow(radius: 3)
                 }
+            }
         }
         .frame(width: size.width, height: size.height)
 
