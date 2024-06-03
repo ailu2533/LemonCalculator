@@ -134,38 +134,14 @@ struct CircleButton: ButtonStyle {
 }
 
 struct CalculatorView: View {
-    @State private var tapCount = 0
+//    @State private var tapCount = 0
 
     var theme: CalculatorTheme
 
-    let size: CGSize = .init(width: 338, height: 354)
+//    let size: CGSize = .init(width: 338, height: 354)
 
     var body: some View {
         VStack(spacing: 14) {
-            HStack {
-                Spacer()
-                Text("0000")
-
-                    .bold()
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
-                    .foregroundColor(.black).padding(.trailing)
-                    .padding(.vertical, 15)
-            }
-            .background(theme.screenBackground)
-            .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius - 1))
-            .padding(1.8)
-            .background(content: {
-                RoundedRectangle(cornerRadius: theme.cornerRadius)
-                    .fill(.white)
-            })
-
-            .frame(width: theme.screenWidth,
-                   alignment: .trailing)
-
-            .shadow(color: theme.screenShadowColor,
-                    radius: theme.screenShadowRadius)
-
             Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
                 ForEach(buttons.indices, id: \.self) { rowIndex in
                     GridRow {
@@ -174,8 +150,8 @@ struct CalculatorView: View {
                             let buttonColor = theme.getButtonColor(button)
 
                             Button(action: {
-                                self.tapCount += 1
-                                self.didTap(button: button)
+//                                self.tapCount += 1
+//                                self.didTap(button: button)
 
                             }, label: {
                                 button.view
@@ -195,7 +171,6 @@ struct CalculatorView: View {
                     }
                 }
         }
-        .frame(width: size.width, height: size.height)
 
         .background {
             theme.background
@@ -209,11 +184,11 @@ struct CalculatorView: View {
                 .fill(theme.calculatorBackground)
         }
 
-        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
+//        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
     }
 
-    func didTap(button: CalcButton) {
-    }
+//    func didTap(button: CalcButton) {
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -23,6 +23,11 @@ class ViewModel {
 
     func didTap(button: CalcButton) {
         do {
+            // 连续的 equal，不触发计算
+            if button == .equal && lastToken == .equal {
+                return
+            }
+
             let expression = value
             value = try CalculatorLogic.shared.handleTap(button: button, currentValue: expression, lastToken: lastToken)
             if button == .equal {
@@ -34,4 +39,3 @@ class ViewModel {
         lastToken = button
     }
 }
-

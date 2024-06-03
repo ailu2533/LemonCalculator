@@ -57,6 +57,11 @@ struct FullCalculatorView: View {
     @Environment(ViewModel.self)
     private var vm
 
+    @AppStorage("skin") private var skin = "Classic"
+
+    @State private var showSettingsSheet = false
+    @State private var showSkinSheet = false
+
     static var descriptor: FetchDescriptor<History> {
         var descriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate, order: .reverse)])
         descriptor.fetchLimit = 30
@@ -70,8 +75,6 @@ struct FullCalculatorView: View {
     @State private var isLoading = false
 
     var theme: CalculatorTheme
-
-//    let size: CGSize = .init(width: 338, height: 354)
 
     var body: some View {
         VStack(spacing: 10) {
@@ -119,7 +122,6 @@ struct FullCalculatorView: View {
                     .bold()
                     .font(.system(size: 32))
                     .foregroundColor(.mdWhite).padding(.trailing)
-//                        .padding(.vertical, 15)
             }
 
             Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
@@ -144,8 +146,14 @@ struct FullCalculatorView: View {
                             } else {
                                 Button(action: {
                                     self.tapCount += 1
-                                    self.didTap(button: button)
-
+                                    switch button {
+                                    case .settings:
+                                        showSettingsSheet = true
+                                    case .skin:
+                                        showSkinSheet = true
+                                    default:
+                                        self.didTap(button: button)
+                                    }
                                 }, label: {
                                     button.view
                                         .fontWeight(.bold)
@@ -163,6 +171,12 @@ struct FullCalculatorView: View {
         .background(Color.classicBlack.ignoresSafeArea())
 
         .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
+        .sheet(isPresented: $showSettingsSheet, content: {
+            SettingsView()
+        })
+        .sheet(isPresented: $showSkinSheet, content: {
+            CollectionView()
+        })
     }
 
     func loadHistories(pageSize: Int, pageNumber: Int) -> [History] {

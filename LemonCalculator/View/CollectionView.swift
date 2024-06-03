@@ -19,7 +19,9 @@ struct CollectionView: View {
                         CalculatorView(theme: MdWhiteTheme())
                         CalculatorView(theme: ModernTheme())
                         CalculatorView(theme: GeekGreenTheme())
-                    }.allowsHitTesting(false)
+                    }
+                    .padding()
+                    .allowsHitTesting(false)
 
                     
                 }
@@ -31,6 +33,7 @@ struct CollectionView: View {
                 .contentMargins(.top, 20)
 
                 .navigationTitle("我的小组件")
+                .toolbarTitleDisplayMode(.inline)
         }
     }
 }
