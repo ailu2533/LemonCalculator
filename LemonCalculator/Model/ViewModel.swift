@@ -13,6 +13,24 @@ import SwiftData
 class ViewModel {
     var modelContext: ModelContext
     var value: String = "0"
+    
+    var showSettingsSheet = false
+    var showSkinSheet = false
+
+    var version = 0
+
+    var skin: SkinKind {
+        get {
+            guard let storedSkin = UserDefaults.standard.value(forKey: "skin") as? Int else {
+                return .base
+            }
+            return SkinKind(rawValue: storedSkin) ?? .base
+        }
+        set {
+            version += 1
+            UserDefaults.standard.set(newValue.rawValue, forKey: "skin")
+        }
+    }
 
     @ObservationIgnored
     var lastToken: CalcButton?

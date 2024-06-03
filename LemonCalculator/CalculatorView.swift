@@ -133,17 +133,7 @@ struct CircleButton: ButtonStyle {
     }
 }
 
-struct CalculatorView: View {
-//    @State private var tapCount = 0
 
-    var theme: any CalculatorTheme
-
-//    let size: CGSize = .init(width: 338, height: 354)
-
-    var body: some View {
-        Text("")
-    }
-}
 
 class MdWhiteTheme: BaseTheme {
     override var background: AnyView {

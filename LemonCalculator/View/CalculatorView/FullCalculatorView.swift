@@ -15,8 +15,6 @@ struct FullCalculatorView: View {
     @Environment(ViewModel.self)
     private var vm
 
-    @AppStorage("skin") private var skin = "Classic"
-
     @State private var showSettingsSheet = false
     @State private var showSkinSheet = false
 
@@ -26,6 +24,9 @@ struct FullCalculatorView: View {
     var theme: any CalculatorTheme
 
     var body: some View {
+        
+        @Bindable var vm = vm
+        
         VStack(spacing: 10) {
             HistoryView()
 
@@ -38,8 +39,14 @@ struct FullCalculatorView: View {
                     .padding(.trailing)
             }
 
-            CalculatorButtonsView(theme: theme)
+            CalculatorButtonsView(theme: vm.skin.theme)
         }
         .background(theme.background.ignoresSafeArea())
+        .sheet(isPresented: $vm.showSettingsSheet, content: {
+            SettingsView()
+        })
+        .sheet(isPresented: $vm.showSkinSheet, content: {
+            CollectionView()
+        })
     }
 }

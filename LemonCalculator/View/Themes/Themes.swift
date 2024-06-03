@@ -55,6 +55,8 @@ class BaseTheme: CalculatorTheme {
 }
 
 struct ModernTheme: CalculatorTheme {
+   
+    
     var id: String {
         return "简洁"
     }
@@ -63,35 +65,24 @@ struct ModernTheme: CalculatorTheme {
         AnyView(Color.clear)
     }
 
-    var texture: String? = nil
-    var screenTopPadding: CGFloat = 15
-
-    var dividerPadding: CGFloat = 20
-
-    var buttonTextSize: CGFloat = 20
-
-    let horizontalSpacing: CGFloat = 10
-    let verticalSpacing: CGFloat = 10
-    let gridCellWidth: CGFloat = 45
-    let cornerRadius: CGFloat = 12
-
+ 
+  
     let screenBackground: Color = Color(.clear)
     let screenTextColor: Color = .white
-    let screenHeight: CGFloat = 60
-    let screenFontsize: CGFloat = 40
+  
     var screenShadowColor: Color = .black
-    var screenShadowRadius: CGFloat = 0.6
+  
 
     var calculatorBackground: Color = .yellow
     var buttonBackground: Color = .black
     var buttonShadowColor: Color = .white
 
-    var calculatorPadding: CGFloat = 8
+ 
     var calculatorBorderShadowColor: Color = .white
-    var calculatorBorderShadowRadius: CGFloat = 0
+  
 
-    var showBase: Bool = true
-    var basePadding: CGFloat = 8
+ 
+ 
     var baseBackground: Color = .yellow.opacity(0.4)
 
     // 按钮颜色

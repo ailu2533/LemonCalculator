@@ -13,8 +13,11 @@ struct CalculatorButtonsView: View {
 
     var theme: any CalculatorTheme
     @State private var tapCount = 0
-    @State private var showSettingsSheet = false
-    @State private var showSkinSheet = false
+
+
+    init(theme: any CalculatorTheme) {
+        self.theme = theme
+    }
 
     var body: some View {
         Grid(horizontalSpacing: ThemeConfig.horizontalSpacing, verticalSpacing: ThemeConfig.verticalSpacing) {
@@ -36,16 +39,16 @@ struct CalculatorButtonsView: View {
                                                                       gridCellWidth: theme.getGridCellWidth() * 2 + ThemeConfig.horizontalSpacing, buttonBackgroundColor: buttonColor,
                                                                       buttonForegroundColor: button.foreground,
                                                                       buttonShadowColor: button.shadowColor,
-                                                                      buttonShadowRadius: 0,
+                                                                      buttonShadowRadius: 1,
                                                                       buttonTextSize: ThemeConfig.buttonTextSize))
                         } else {
                             Button(action: {
                                 self.tapCount += 1
                                 switch button {
                                 case .settings:
-                                    showSettingsSheet = true
+                                    vm.showSettingsSheet = true
                                 case .skin:
-                                    showSkinSheet = true
+                                    vm.showSkinSheet = true
                                 default:
                                     self.didTap(button: button)
                                 }
@@ -57,30 +60,23 @@ struct CalculatorButtonsView: View {
                                                                       buttonBackgroundColor: buttonColor,
                                                                       buttonForegroundColor: button.foreground,
                                                                       buttonShadowColor: button.shadowColor,
-                                                                      buttonShadowRadius: 0,
+                                                                      buttonShadowRadius: 1,
                                                                       buttonTextSize: ThemeConfig.buttonTextSize))
                         }
                     }
                 }
             }
         }
-        .padding(24)
+        .padding(.vertical, 12)
+        .containerRelativeFrame(.horizontal)
         .background {
             RoundedRectangle(cornerRadius: 12)
                 .fill(theme.baseBackground)
-                .blur(radius: 0.6)
-                .shadow(radius: 3)
                 .ignoresSafeArea()
         }
 
-//        .containerRelativeFrame(.horizontal)
         .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
-        .sheet(isPresented: $showSettingsSheet, content: {
-            SettingsView()
-        })
-        .sheet(isPresented: $showSkinSheet, content: {
-            CollectionView()
-        })
+     
     }
 
     func didTap(button: CalcButton) {

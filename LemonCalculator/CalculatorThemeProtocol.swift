@@ -8,9 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol CalculatorTheme: Identifiable {
-    var id: String { get }
-
+protocol CalculatorTheme {
     var screenTextColor: Color { get }
 
     var calculatorBackground: Color { get }
@@ -22,7 +20,6 @@ protocol CalculatorTheme: Identifiable {
 
     var screenShadowColor: Color { get }
 
-    var showBase: Bool { get }
     var baseBackground: Color { get }
 
     // 按钮颜色
@@ -35,11 +32,7 @@ protocol CalculatorTheme: Identifiable {
 
 extension CalculatorTheme {
     var screenWidth: CGFloat {
-        if showBase {
-            return 5 * getGridCellWidth() + 4 * ThemeConfig.horizontalSpacing + 2 * ThemeConfig.basePadding
-        } else {
-            return 5 * getGridCellWidth() + 4 * ThemeConfig.horizontalSpacing
-        }
+        return 5 * getGridCellWidth() + 4 * ThemeConfig.horizontalSpacing
     }
 }
 
@@ -57,7 +50,7 @@ extension CalculatorTheme {
 
     func getGridCellWidth() -> CGFloat {
         let size = UIScreen.main.bounds
-        let basePaddingValue = showBase ? 2 * ThemeConfig.basePadding : 0
+        let basePaddingValue: CGFloat = ThemeConfig.basePadding
         return (size.width - (basePaddingValue + 4 * ThemeConfig.horizontalSpacing + 2 * ThemeConfig.calculatorPadding)) / 5
     }
 }
