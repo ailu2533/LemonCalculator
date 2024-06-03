@@ -93,73 +93,213 @@ struct WidgetCalculatorView: View {
                     Button(intent: ClearCalc()) {
                         Text("AC")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.functionButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: SevenCalc()) {
                         Text("7")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: EightCalc()) {
                         Text("8")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: ClearCalc()) {
                         Text("9")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: DivideCalc()) {
                         Image(systemName: "divide")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.operatorButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
                 }
-                .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
 
                 HStack {
                     Button(intent: NegativeCalc()) {
                         Image(systemName: "plus.forwardslash.minus")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.functionButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: FourCalc()) {
                         Text("4")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: FiveCalc()) {
                         Text("5")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: SixCalc()) {
                         Text("6")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+
                     Button(intent: MultiplyCalc()) {
                         Image(systemName: "multiply")
                     }
-                }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.operatorButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                }
 
                 HStack {
                     Button(intent: PercentCalc()) {
                         Image(systemName: "percent")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.functionButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
                     Button(intent: OneCalc()) {
                         Text("1")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
+                    
                     Button(intent: TwoCalc()) {
                         Text("2")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
+                    
                     Button(intent: ThreeCalc()) {
                         Text("3")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
+                    
                     Button(intent: SubtractCalc()) {
                         Image(systemName: "minus")
                     }
-                }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
-
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.operatorButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
+                }
                 HStack {
                     Button(intent: DelCalc()) {
                         Image(systemName: "delete.left")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.functionButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
                     Button(intent: ZeroCalc()) {
                         Text("0")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
                     Button(intent: DecimalCalc()) {
                         Text(".")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
+                    
                     Button(intent: EqualCalc()) {
                         Image(systemName: "equal")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.digitalButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
                     Button(intent: AddCalc()) {
                         Image(systemName: "plus")
                     }
+                    .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
+                                                              buttonBackgroundColor: theme.operatorButtonColor,
+                                                              buttonForegroundColor: .white,
+                                                              buttonShadowColor: .clear,
+                                                              buttonShadowRadius: 0,
+                                                              buttonTextSize: theme.buttonTextSize))
+                    
                 }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
             }
 
