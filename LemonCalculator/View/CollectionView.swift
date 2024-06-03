@@ -14,8 +14,7 @@ struct CollectionView: View {
                 LazyVStack {
 
                     Group {
-                        CalculatorView(theme: ClassicTheme())
-                       
+                        CalculatorView(theme: BaseTheme())
                         CalculatorView(theme: MdWhiteTheme())
                         CalculatorView(theme: ModernTheme())
                         CalculatorView(theme: GeekGreenTheme())
@@ -25,9 +24,7 @@ struct CollectionView: View {
 
                     
                 }
-                .navigationDestination(for: Int.self, destination: { _ in
-                    ThemeEditor()
-                })
+          
 
             }.scrollIndicators(.hidden)
                 .contentMargins(.top, 20)

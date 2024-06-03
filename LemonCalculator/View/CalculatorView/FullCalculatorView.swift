@@ -23,7 +23,7 @@ struct FullCalculatorView: View {
     @State private var currentPage = 0
     @State private var isLoading = false
 
-    var theme: CalculatorTheme
+    var theme: any CalculatorTheme
 
     var body: some View {
         VStack(spacing: 10) {
@@ -42,8 +42,4 @@ struct FullCalculatorView: View {
         }
         .background(theme.background.ignoresSafeArea())
     }
-}
-
-#Preview {
-    FullCalculatorView(theme: ClassicTheme())
 }

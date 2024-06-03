@@ -136,117 +136,26 @@ struct CircleButton: ButtonStyle {
 struct CalculatorView: View {
 //    @State private var tapCount = 0
 
-    var theme: CalculatorTheme
+    var theme: any CalculatorTheme
 
 //    let size: CGSize = .init(width: 338, height: 354)
 
     var body: some View {
-        VStack(spacing: 14) {
-            Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
-                ForEach(buttons.indices, id: \.self) { rowIndex in
-                    GridRow {
-                        ForEach(buttons[rowIndex], id: \.self) { button in
-
-                            let buttonColor = theme.getButtonColor(button)
-
-                            Button(action: {
-//                                self.tapCount += 1
-//                                self.didTap(button: button)
-
-                            }, label: {
-                                button.view
-                            })
-                            .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(), buttonBackgroundColor: buttonColor, buttonForegroundColor: button.foreground, buttonShadowColor: button.shadowColor, buttonShadowRadius: button.shadowRadius, buttonTextSize: theme.buttonTextSize))
-                        }
-                    }
-                }
-
-            }.padding(theme.basePadding)
-                .background {
-                    if theme.showBase {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(theme.baseBackground)
-                            .blur(radius: 0.6)
-                            .shadow(radius: 3)
-                    }
-                }
-        }
-
-        .background {
-            theme.background
-        }
-
-        .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
-        .shadow(color: theme.calculatorBorderShadowColor,
-                radius: theme.calculatorBorderShadowRadius)
-        .background {
-            RoundedRectangle(cornerRadius: 12)
-                .fill(theme.calculatorBackground)
-        }
-
-//        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
-    }
-
-//    func didTap(button: CalcButton) {
-//    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScrollView {
-            VStack {
-                CalculatorView(theme: ClassicTheme())
-                CalculatorView(theme: ModernTheme())
-                CalculatorView(theme: GeekGreenTheme())
-                CalculatorView(theme: MdWhiteTheme())
-            }
-        }.scrollIndicators(.hidden)
+        Text("")
     }
 }
 
-struct MdWhiteTheme: CalculatorTheme {
-    var background: AnyView {
+class MdWhiteTheme: BaseTheme {
+    override var background: AnyView {
         AnyView(Color.clear)
     }
-
-    var texture: String? = nil
-    var screenTopPadding: CGFloat = 15
-
-    var dividerPadding: CGFloat = 20
-
-    var buttonTextSize: CGFloat = 20
-
-    let horizontalSpacing: CGFloat = 10
-    let verticalSpacing: CGFloat = 10
-    let gridCellWidth: CGFloat = 45
-    let cornerRadius: CGFloat = 12
-
-    let screenBackground: Color = Color(.mdScreenGreen)
-    let screenTextColor: Color = .black
-    let screenHeight: CGFloat = 80
-    let screenFontsize: CGFloat = 40
-    var screenShadowColor: Color = .black
-    var screenShadowRadius: CGFloat = 0.6
-
-    var calculatorBackground: Color = Color(.mdWhite)
-    var buttonBackground: Color = .black
-    var buttonShadowColor: Color = .white
-
-    var calculatorPadding: CGFloat = 8
-    var calculatorBorderShadowColor: Color = .white
-    var calculatorBorderShadowRadius: CGFloat = 0
-
-    var showBase: Bool = true
-    var basePadding: CGFloat = 8
-    var baseBackground: Color = .black.opacity(0.05)
-
-    // 按钮颜色
-    var functionButtonColor: Color = Color(.mdBrown)
-    var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
-    var operatorButtonColor: Color = Color(.mdBlue)
 }
 
 struct GeekGreenTheme: CalculatorTheme {
+    var id: String {
+        "极客绿"
+    }
+
     var background: AnyView {
         AnyView(StripedBackground(stripeColor: Color(hex: "#58a6d1")!,
                                   backgroundColor: Color(hex: "4e94ba")!))
@@ -288,20 +197,4 @@ struct GeekGreenTheme: CalculatorTheme {
     var functionButtonColor: Color = Color(.blue)
     var digitalButtonColor: Color = Color(UIColor(red: 55 / 255.0, green: 55 / 255.0, blue: 55 / 255.0, alpha: 1))
     var operatorButtonColor: Color = Color(.green)
-}
-
-extension View {
-    /// Applies the given transform if the given condition evaluates to `true`.
-    /// - Parameters:
-    ///   - condition: The condition to evaluate.
-    ///   - transform: The transform to apply to the source `View`.
-    /// - Returns: Either the original `View` or the modified `View` if the condition is `true`.
-    @ViewBuilder
-    public func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
 }

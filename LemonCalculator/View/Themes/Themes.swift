@@ -8,16 +8,20 @@
 import Foundation
 import SwiftUI
 
-struct ClassicTheme: CalculatorTheme {
-    var background: AnyView {
-        AnyView(Rectangle().fill(ImagePaint(image: Image("texture"), scale: 0.1)))
+class BaseTheme: CalculatorTheme {
+    var id: String {
+        return "基本"
     }
 
-    var texture: String? = "texture"
+    var background: AnyView {
+        AnyView(
+            Rectangle().fill(ImagePaint(image: Image("texture"), scale: 0.1))
+                .background(Color.black.opacity(0.6))
+        )
+    }
+
     var screenTopPadding: CGFloat = 15
-
     var dividerPadding: CGFloat = 20
-
     var buttonTextSize: CGFloat = 20
 
     let horizontalSpacing: CGFloat = 10
@@ -51,6 +55,10 @@ struct ClassicTheme: CalculatorTheme {
 }
 
 struct ModernTheme: CalculatorTheme {
+    var id: String {
+        return "简洁"
+    }
+
     var background: AnyView {
         AnyView(Color.clear)
     }

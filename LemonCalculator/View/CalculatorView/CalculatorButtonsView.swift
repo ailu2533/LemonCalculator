@@ -11,13 +11,13 @@ struct CalculatorButtonsView: View {
     @Environment(ViewModel.self)
     private var vm
 
-    var theme: CalculatorTheme
+    var theme: any CalculatorTheme
     @State private var tapCount = 0
     @State private var showSettingsSheet = false
     @State private var showSkinSheet = false
 
     var body: some View {
-        Grid(horizontalSpacing: theme.horizontalSpacing, verticalSpacing: theme.verticalSpacing) {
+        Grid(horizontalSpacing: ThemeConfig.horizontalSpacing, verticalSpacing: ThemeConfig.verticalSpacing) {
             ForEach(buttons.indices, id: \.self) { rowIndex in
                 GridRow {
                     ForEach(buttons[rowIndex], id: \.self) { button in
@@ -29,15 +29,15 @@ struct CalculatorButtonsView: View {
                                 self.didTap(button: button)
                             }, label: {
                                 button.view
-                                   
+
                             })
                             .gridCellColumns(2)
                             .buttonStyle(MultiLayerShadowButtonStyle3(gridCellHeight: theme.getGridCellWidth(),
-                                                                      gridCellWidth: theme.getGridCellWidth() * 2 + theme.horizontalSpacing, buttonBackgroundColor: buttonColor,
+                                                                      gridCellWidth: theme.getGridCellWidth() * 2 + ThemeConfig.horizontalSpacing, buttonBackgroundColor: buttonColor,
                                                                       buttonForegroundColor: button.foreground,
                                                                       buttonShadowColor: button.shadowColor,
-                                                                      buttonShadowRadius: button.shadowRadius,
-                                                                      buttonTextSize: theme.buttonTextSize))
+                                                                      buttonShadowRadius: 0,
+                                                                      buttonTextSize: ThemeConfig.buttonTextSize))
                         } else {
                             Button(action: {
                                 self.tapCount += 1
@@ -51,21 +51,29 @@ struct CalculatorButtonsView: View {
                                 }
                             }, label: {
                                 button.view
-                                    
+
                             })
                             .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
                                                                       buttonBackgroundColor: buttonColor,
                                                                       buttonForegroundColor: button.foreground,
                                                                       buttonShadowColor: button.shadowColor,
-                                                                      buttonShadowRadius: button.shadowRadius,
-                                                                      buttonTextSize: theme.buttonTextSize))
+                                                                      buttonShadowRadius: 0,
+                                                                      buttonTextSize: ThemeConfig.buttonTextSize))
                         }
                     }
                 }
             }
         }
-        .padding(.vertical, 20)
-        .containerRelativeFrame(.horizontal)
+        .padding(24)
+        .background {
+            RoundedRectangle(cornerRadius: 12)
+                .fill(theme.baseBackground)
+                .blur(radius: 0.6)
+                .shadow(radius: 3)
+                .ignoresSafeArea()
+        }
+
+//        .containerRelativeFrame(.horizontal)
         .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
         .sheet(isPresented: $showSettingsSheet, content: {
             SettingsView()
