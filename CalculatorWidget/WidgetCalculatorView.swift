@@ -61,12 +61,15 @@ struct WidgetCalculatorView: View {
     var theme: CalculatorTheme
 
     let size: CGSize = .init(width: 338, height: 354)
+    
+    @AppStorage("currentValue", store: UserDefaults(suiteName: appGroup))
+    var currentValue: String = "0"
 
     var body: some View {
         VStack(spacing: 14) {
             HStack {
                 Spacer()
-                Text("0000")
+                Text(currentValue)
 
                     .bold()
                     .font(.system(size: 20))
