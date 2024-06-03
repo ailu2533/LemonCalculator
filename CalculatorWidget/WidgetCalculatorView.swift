@@ -55,6 +55,27 @@ extension CalcButton {
     }
 }
 
+@Observable
+class CalcViewModel {
+    static let shared = CalcViewModel()
+
+    private init() {
+    }
+
+    var currentValue = "0"
+}
+
+struct TestIntent: AppIntent {
+    static var title: LocalizedStringResource = "Calculator Button"
+    static var description = IntentDescription("Calculator Button")
+
+    func perform() async throws -> some IntentResult {
+        CalcViewModel.shared.currentValue += "1"
+
+        return .result()
+    }
+}
+
 struct WidgetCalculatorView: View {
     @State private var tapCount = 0
 
@@ -70,12 +91,13 @@ struct WidgetCalculatorView: View {
             HStack {
                 Spacer()
                 Text(currentValue)
-
+                    .lineLimit(1)
                     .bold()
                     .font(.system(size: 20))
                     .fontWeight(.bold)
                     .foregroundColor(.black).padding(.trailing)
                     .padding(.vertical, 15)
+                    .contentTransition(.identity)
             }
             .background(theme.screenBackground)
             .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius - 1))
@@ -83,13 +105,15 @@ struct WidgetCalculatorView: View {
             .background(content: {
                 RoundedRectangle(cornerRadius: theme.cornerRadius)
                     .fill(.white)
-            })
+            })        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: currentValue)
+
 
             .frame(width: theme.screenWidth,
                    alignment: .trailing)
 
             .shadow(color: theme.screenShadowColor,
                     radius: theme.screenShadowRadius)
+            .allowsHitTesting(false)
 
             VStack {
                 HStack {
@@ -123,7 +147,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
 
-                    Button(intent: ClearCalc()) {
+                    Button(intent: NineCalc()) {
                         Text("9")
                     }
                     .buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: theme.getGridCellWidth(),
@@ -206,7 +230,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
+
                     Button(intent: OneCalc()) {
                         Text("1")
                     }
@@ -216,8 +240,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
-                    
+
                     Button(intent: TwoCalc()) {
                         Text("2")
                     }
@@ -227,8 +250,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
-                    
+
                     Button(intent: ThreeCalc()) {
                         Text("3")
                     }
@@ -238,8 +260,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
-                    
+
                     Button(intent: SubtractCalc()) {
                         Image(systemName: "minus")
                     }
@@ -249,7 +270,6 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
                 }
                 HStack {
                     Button(intent: DelCalc()) {
@@ -261,7 +281,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
+
                     Button(intent: ZeroCalc()) {
                         Text("0")
                     }
@@ -271,7 +291,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
+
                     Button(intent: DecimalCalc()) {
                         Text(".")
                     }
@@ -281,8 +301,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
-                    
+
                     Button(intent: EqualCalc()) {
                         Image(systemName: "equal")
                     }
@@ -292,7 +311,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
+
                     Button(intent: AddCalc()) {
                         Image(systemName: "plus")
                     }
@@ -302,7 +321,7 @@ struct WidgetCalculatorView: View {
                                                               buttonShadowColor: .clear,
                                                               buttonShadowRadius: 0,
                                                               buttonTextSize: theme.buttonTextSize))
-                    
+
                 }.buttonStyle(MultiLayerShadowButtonStyle2(gridCellWidth: 45, buttonBackgroundColor: .yellow, buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
             }
 
@@ -314,12 +333,17 @@ struct WidgetCalculatorView: View {
                         .blur(radius: 0.6)
                         .shadow(radius: 3)
                 }
+                
+               
+                
             }
         }
         .frame(width: size.width, height: size.height)
 
         .background {
-            theme.background
+            Button(intent: NopIntent()) {
+                Color(.systemBackground).opacity(0.01)
+            }.buttonStyle(PlainButtonStyle())
         }
 
         .clipShape(RoundedRectangle(cornerRadius: theme.cornerRadius))
@@ -328,8 +352,8 @@ struct WidgetCalculatorView: View {
         .background {
             RoundedRectangle(cornerRadius: 12)
                 .fill(theme.calculatorBackground)
+            
         }
 //
-//        .sensoryFeedback(.impact(flexibility: .rigid, intensity: 1), trigger: tapCount)
     }
 }

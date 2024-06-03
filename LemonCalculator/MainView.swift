@@ -51,35 +51,9 @@ struct MainView: View {
     @State private var selection = 1
 
     var body: some View {
-        TabView(selection: $selection) {
-            FullCalculatorView(theme: ClassicTheme()).tabItem {
-                Label("发现", systemImage: "house")
-            }.tag(1)
-
-            CollectionView().tabItem {
-                Label("发现", systemImage: "sun.haze")
-            }.tag(2)
-
-            SettingsView().tabItem {
-                Label("发现", systemImage: "gear")
-            }.tag(3)
-        }.onAppear {
-            let appearance = UITabBarAppearance()
-            appearance.configureWithOpaqueBackground()
-            appearance.stackedLayoutAppearance.normal.iconColor = .gray
-            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-
-            appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.black)
-            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(Color.black)]
-            appearance.backgroundColor = UIColor(Color.classicBlack)
-
-            UITabBar.appearance().standardAppearance = appearance
-            UITabBar.appearance().scrollEdgeAppearance = appearance
-        }
+        FullCalculatorView(theme: ClassicTheme())
     }
 }
-
-
 
 #Preview {
     MainView()

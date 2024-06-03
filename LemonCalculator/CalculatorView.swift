@@ -4,7 +4,8 @@ let buttons: [[CalcButton]] = [
     [.clear, .seven, .eight, .nine, .divide],
     [.negative, .four, .five, .six, .multiply],
     [.percent, .one, .two, .three, .subtract],
-    [.del, .zero, .decimal, .equal, .add],
+    [.del, .zero, .decimal, .add, .add],
+    [.settings, .leftParen, .rightParen, .equal, .equal],
 ]
 
 enum CalculatorButtonKind: Int {
@@ -34,6 +35,13 @@ enum CalcButton: String {
     case percent = "%"
     case negative = "-/+"
     case del = "D"
+
+    case leftParen = "("
+    case rightParen = ")"
+
+    case settings
+//    case clearHistory
+    case skin
 
     var background: Color {
         switch self {
@@ -76,6 +84,11 @@ enum CalcButton: String {
             Image(systemName: "delete.left")
         case .percent:
             Image(systemName: "percent")
+        case .settings:
+            Image(systemName: "gear")
+        case .skin:
+            Image(systemName: "tshirt")
+
         default:
             Text(self.rawValue)
         }

@@ -170,5 +170,3 @@ struct FullCalculatorView: View {
 #Preview {
     FullCalculatorView(theme: ClassicTheme())
 }
-
-// https://github.com/or1onsli/Calculator/blob/main/Calculator/CalculatorBrain.swift
