@@ -5,14 +5,17 @@
 //  Created by ailu on 2024/6/3.
 //
 
-import SwiftUI
 import SwiftData
-
+import SwiftUI
 
 struct HistoryView: View {
     static var descriptor: FetchDescriptor<History> {
         var descriptor = FetchDescriptor<History>(sortBy: [SortDescriptor(\.createDate, order: .reverse)])
-        descriptor.fetchLimit = 30
+
+        let fetchLimit = UserDefaults.standard.value(forKey: "numberHistoryPresent") as? Int ?? 30
+//        print(fetchLimit)
+
+        descriptor.fetchLimit = fetchLimit
         return descriptor
     }
 
@@ -45,7 +48,8 @@ struct HistoryView: View {
 
                 }.padding(.trailing, 15)
 
-            }.onAppear {
+            }
+            .onAppear {
                 withAnimation {
                     scrollView.scrollTo("bottom", anchor: .bottom)
                 }

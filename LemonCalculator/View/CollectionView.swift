@@ -45,12 +45,11 @@ enum SkinKind: Int, CaseIterable, Identifiable {
 }
 
 struct CollectionView: View {
-
     @Environment(ViewModel.self)
     private var vm
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -63,23 +62,23 @@ struct CollectionView: View {
                                     .allowsHitTesting(false)
                                 HStack {
                                     Spacer()
+                                    Text(kind.text)
+                                    Spacer()
                                     Button(action: {
                                         vm.skin = kind
                                         withAnimation {
                                             dismiss()
                                         }
                                     }, label: {
-                                        Text("Use")
+                                        Text(kind == vm.skin ? "使用中" : "使用")
                                     })
-                                    .buttonStyle(BorderedButtonStyle())
-                                    
+                                    .buttonStyle(MultiLayerShadowButtonStyle3(gridCellHeight: 40, gridCellWidth: 80, buttonBackgroundColor: kind == vm.skin ? .accentColor : Color(.systemGray3), buttonForegroundColor: .white, buttonShadowColor: .clear, buttonShadowRadius: 0, buttonTextSize: 20))
+
                                     Spacer()
                                 }
                             }
                         }
                     }
-
-                    
                 }
 
             }.scrollIndicators(.hidden)

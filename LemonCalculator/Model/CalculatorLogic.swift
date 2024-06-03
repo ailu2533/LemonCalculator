@@ -13,7 +13,11 @@ class CalculatorLogic {
 
     private lazy var percentageRegex = try! NSRegularExpression(pattern: "(\\d+(\\.\\d+)?)%", options: [])
 
-    private init() {}
+    let floatPointerNumber: Int
+
+    private init() {
+        floatPointerNumber = UserDefaults.standard.value(forKey: "floatPointerNumber") as? Int ?? 9
+    }
 
     func handleTap(button: CalcButton, currentValue: String, lastToken: CalcButton?) throws -> String {
         var newValue = currentValue
@@ -108,7 +112,7 @@ class CalculatorLogic {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 9 // Set to 9 to retain up to 9 decimal places
+        formatter.maximumFractionDigits = floatPointerNumber // Set to 9 to retain up to 9 decimal places
         formatter.usesGroupingSeparator = true // Set to true if you want to use grouping separators like commas
 
         if let formattedString = formatter.string(from: NSNumber(value: result)) {

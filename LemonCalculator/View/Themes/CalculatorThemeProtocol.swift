@@ -11,14 +11,7 @@ import SwiftUI
 protocol CalculatorTheme {
     var screenTextColor: Color { get }
 
-    var calculatorBackground: Color { get }
     var screenBackground: Color { get }
-    var buttonBackground: Color { get }
-    var buttonShadowColor: Color { get }
-
-    var calculatorBorderShadowColor: Color { get }
-
-    var screenShadowColor: Color { get }
 
     var baseBackground: Color { get }
 

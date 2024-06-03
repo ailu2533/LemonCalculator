@@ -13,7 +13,7 @@ import SwiftData
 class ViewModel {
     var modelContext: ModelContext
     var value: String = "0"
-    
+
     var showSettingsSheet = false
     var showSkinSheet = false
 

@@ -24,24 +24,25 @@ struct FullCalculatorView: View {
     var theme: any CalculatorTheme
 
     var body: some View {
-        
         @Bindable var vm = vm
-        
-        VStack(spacing: 10) {
-            HistoryView()
 
-            HStack {
-                Spacer()
-                Text(vm.value)
-                    .bold()
-                    .font(.system(size: 32))
-                    .foregroundColor(.mdWhite)
-                    .padding(.trailing)
+        ZStack {
+            Color.mdScreenGreen.ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                HistoryView()
+                HStack {
+                    Spacer()
+                    Text(vm.value)
+                        .bold()
+                        .font(.system(size: 32))
+                        .foregroundColor(.mdWhite)
+                        .padding(.trailing)
+                }
+
+                CalculatorButtonsView(theme: vm.skin.theme)
             }
-
-            CalculatorButtonsView(theme: vm.skin.theme)
         }
-        .background(theme.background.ignoresSafeArea())
         .sheet(isPresented: $vm.showSettingsSheet, content: {
             SettingsView()
         })

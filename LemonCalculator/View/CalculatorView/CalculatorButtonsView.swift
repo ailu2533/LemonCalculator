@@ -33,7 +33,7 @@ struct CalculatorButtonsView: View {
                             }, label: {
                                 button.view
 
-                            })
+                            }) 
                             .gridCellColumns(2)
                             .buttonStyle(MultiLayerShadowButtonStyle3(gridCellHeight: theme.getGridCellWidth(),
                                                                       gridCellWidth: theme.getGridCellWidth() * 2 + ThemeConfig.horizontalSpacing, buttonBackgroundColor: buttonColor,

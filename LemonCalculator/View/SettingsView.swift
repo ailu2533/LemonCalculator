@@ -8,9 +8,13 @@
 import Foundation
 import SwiftUI
 
-
 struct SettingsView: View {
+    @Environment(ViewModel.self)
+    private var vm
+
     @AppStorage("floatPointerNumber") private var floatPointerNumber = 9
+
+    @AppStorage("numberHistoryPresent") private var numberHistoryPresent = 30
 
     var body: some View {
         Form {
@@ -21,6 +25,24 @@ struct SettingsView: View {
             } label: {
                 Text("小数位数")
             }
+
+            Picker(selection: $numberHistoryPresent) {
+                ForEach([5, 30, 100, 200], id: \.self) {
+                    Text("\($0)").tag($0)
+                }
+            } label: {
+                Text("显示历史记录条数")
+            }
+
+            Button(action: {
+                do {
+                    try vm.modelContext.delete(model: History.self)
+                } catch {
+                }
+
+            }, label: {
+                Text("清除所有历史记录")
+            })
         }
     }
 }
