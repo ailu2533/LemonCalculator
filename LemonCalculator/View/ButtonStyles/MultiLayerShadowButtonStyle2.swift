@@ -10,14 +10,15 @@ import SwiftUI
 struct MultiLayerShadowButtonStyle2: ButtonStyle {
     let gridCellWidth: CGFloat
     let buttonBackgroundColor: Color
-    var buttonForegroundColor: Color = .white
-    var buttonShadowColor: Color = .white
-    var buttonShadowRadius: CGFloat = 2
-    var buttonTextSize: CGFloat = 18
+    var buttonForegroundColor: Color
+    var buttonShadowColor: Color
+    var buttonShadowRadius: CGFloat
+    var buttonTextSize: CGFloat
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: buttonTextSize))
+            .fontWeight(.bold)
             .frame(width: gridCellWidth, height: gridCellWidth)
             .background(
                 ZStack {
@@ -53,6 +54,7 @@ struct MultiLayerShadowButtonStyle3: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.system(size: buttonTextSize))
+            .fontWeight(.bold)
             .frame(width: gridCellWidth, height: gridCellHeight)
             .background(
                 ZStack {
